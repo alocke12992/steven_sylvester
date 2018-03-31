@@ -24,13 +24,15 @@ gem 'puma', '~> 3.7'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
-
+gem 'paperclip', '~> 5.1.0'
 gem 'omniauth'
 gem 'devise'
 gem 'devise_token_auth'
+gem 'aws-sdk'
 group :development, :test do
   gem 'faker'
   gem 'pry'
+  gem 'dotenv-rails'
 end
 
 group :development do

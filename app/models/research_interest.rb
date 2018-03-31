@@ -1,0 +1,2 @@
+class ResearchInterest < ApplicationRecord
+end

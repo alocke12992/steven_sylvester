@@ -4,8 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "html-pdf": "^2.2.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-inline-css": "^2.3.1",
+    "react-pdf": "^3.0.2",
     "react-quill": "^1.2.6",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
