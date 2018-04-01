@@ -10,7 +10,7 @@ class Api::ResearchInterestsController < ApplicationController
   end
 
   def create
-    research_interest = ResearchInterest.create(research_interest_params)
+    research_interest = ResearchInterest.create(research_params)
     if research_interest.save
       render json: research_interest
     else
@@ -19,7 +19,7 @@ class Api::ResearchInterestsController < ApplicationController
   end
 
   def update
-    if @research_interest.update(research_interest_params)
+    if @research_interest.update(research_params)
       render json: @research_interest
     else
       render json: { errors: @research_interest.errors.full_messages.join(',') }, status: 422
@@ -35,7 +35,7 @@ class Api::ResearchInterestsController < ApplicationController
       @research_interest = ResearchInterest.find(params[:id])
     end
 
-    def research_interest_params
+    def research_params
       params.require(:research_interest).permit(:topic, :title, :body)
     end
 end

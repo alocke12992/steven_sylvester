@@ -1,38 +1,40 @@
-import React from 'react'
-import {connect} from 'react-redux'
+import React from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react'
-import {getResearch} from '../actions/researchInterests';
+import {getResearch, deleteResearch} from '../actions/researchInterests';
 
 class ResearchInterest extends React.Component {
   state = {topic: '', title: '', body: ''}
 
-
-  componentDidMount() {
-    this.props.dispatch(getResearch());
-  }
-
+  createMarkup = (html) => {
+    return {__html: html};
+  };
 
   render() {
-    const {researchInterests} = this.props
+    const {researchInterests, user} = this.props
     return (
       researchInterests.map((research) => {
         return (
-          <Grid.Row columns={2}>
-            <Grid.Column width={14}>
+          <Grid.Row columns={3} key={research.id}>
+            <Grid.Column width={8}>
               <Container text>
                 <Header size='medium'>{research.topic}</Header>
                 <Header size='small'>{research.title}</Header>
-                <p>{research.body}</p>
+                <div
+                  dangerouslySetInnerHTML={this.createMarkup(research.body)}
+                />
               </Container>
             </Grid.Column>
-            <Grid.Column width={2}>
-              <Button button>
-                <Icon name='edit' />
-              </Button>
-              <Button icon>
-                <Icon name='delete' />
-              </Button>
-            </Grid.Column>
+            {user.role === 'admin' &&
+              <Grid.Column width={4}>
+                <Button icon>
+                  <Link to={`/current_research/${research.id}`} >
+                    <Icon name='settings' />
+                  </Link>
+                </Button>
+              </Grid.Column>
+            }
           </Grid.Row>
         )
       })
@@ -42,7 +44,8 @@ class ResearchInterest extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    researchInterests: state.researchInterests
+    researchInterests: state.researchInterests,
+    user: state.user,
   }
 }
 

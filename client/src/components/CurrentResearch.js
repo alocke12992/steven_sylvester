@@ -2,17 +2,33 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Grid, Header, Button} from 'semantic-ui-react'
 import ResearchInterest from './ResearchInterest';
+import ResearchInterestForm from './ResearchInterestForm';
 
 class CurrentResearch extends React.Component {
+  state = {showForm: false};
+
+  toggleForm = () => {
+    this.setState(state => {
+      return {showForm: !state.showForm}
+    })
+  }
 
   render() {
     const {user} = this.props
+    const {showForm} = this.state
     return (
       <div>
         <Grid>
           {user.role === 'admin' &&
             <Grid.Row>
-              <Button>Add New</Button>
+              <Button onClick={this.toggleForm}>
+                {showForm ? 'Close Form' : 'Add New'}
+              </Button>
+              {showForm ?
+                <ResearchInterestForm closeForm={this.toggleForm} />
+                :
+                null
+              }
             </Grid.Row>
           }
           <ResearchInterest />
