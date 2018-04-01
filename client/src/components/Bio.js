@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import InterestsForm from './InterestsForm'
-import {getInterests, updateInterest} from '../actions/interests';
+import BioForm from './BioForm'
+import {getBios, updateBios} from '../actions/bios';
 import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react';
 
-class Interests extends React.Component {
+class Bio extends React.Component {
   state = {showForm: false};
 
   componentDidMount() {
-    this.props.dispatch(getInterests());
+    this.props.dispatch(getBios());
   }
 
   toggleForm = () => {
@@ -24,7 +24,7 @@ class Interests extends React.Component {
   form = ({body}) => {
     return (
       <Grid.Column width={6}>
-        <InterestsForm {...body} closeForm={this.toggleForm} />
+        <BioForm {...body} closeForm={this.toggleForm} />
         <Button onClick={this.toggleForm}>
           Cancel
         </Button>
@@ -49,7 +49,6 @@ class Interests extends React.Component {
                 </Grid.Column>
               }
               <Grid.Column width={8}>
-                <Header as='h2' textAlign='center'>Research Interests</Header>
                 <Container text>
                   <div
                     dangerouslySetInnerHTML={this.createMarkup(body)}
@@ -64,7 +63,7 @@ class Interests extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const {body} = state.interests
+  const {body} = state.bios
   return {user: state.user, body}
 }
-export default connect(mapStateToProps)(Interests);
+export default connect(mapStateToProps)(Bio);

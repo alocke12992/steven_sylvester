@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import bios from './bios';
 import user from './user';
 import flash from './flash';
 import interests from './interests';
@@ -9,6 +10,7 @@ const rootReducer = combineReducers({
   flash,
   interests,
   researchInterests,
+  bios,
 });
 
 export default rootReducer;

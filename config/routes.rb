@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :interests, only: [:index, :update]
     resources :research_interests
+    resources :bios, only: [:index, :update]
   end
 
   #Do not place any routes below this one

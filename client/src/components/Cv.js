@@ -1,7 +1,7 @@
 import React from 'react';
 import Interest from './Interest';
-import { Document, Page } from 'react-pdf';
-import { Divider, Grid, Header, Segment } from 'semantic-ui-react'
+import {Document, Page} from 'react-pdf';
+import {Divider, Grid, Header, Segment} from 'semantic-ui-react'
 
 class Cv extends React.Component {
   state = {
@@ -9,21 +9,20 @@ class Cv extends React.Component {
     pageNumber: 1,
   }
 
-  onDocumentLoad = ({ numPages }) => {
-    this.setState({ numPages });
+  onDocumentLoad = ({numPages}) => {
+    this.setState({numPages});
   }
 
   render() {
-    const { pageNumber, numPages } = this.state;
+    const {pageNumber, numPages} = this.state;
     return (
       <Grid>
         <Grid.Row>
           <Divider />
         </Grid.Row>
-        <Grid.Row columns={ 2 }>
+        <Grid.Row columns={2}>
           <Grid.Column>
             <Segment>
-              <Header as='h2' textAlign='center'>Research Interests</Header>
               <Interest />
             </Segment>
           </Grid.Column>
@@ -31,12 +30,12 @@ class Cv extends React.Component {
             <Segment>
               <Header as='h2' textAlign='center'>CURRICULUM VITAE (Sept. 2017)</Header>
               <Document
-                file={ { url: 'https://drive.google.com/open?id=0B0uyzLguugkBdmhVMzhVRTZVdHBYczluZW5iZXBUTjh4dkRF' } }
-                onLoadSuccess={ this.onDocumentLoad }
+                file={{url: 'https://drive.google.com/open?id=0B0uyzLguugkBdmhVMzhVRTZVdHBYczluZW5iZXBUTjh4dkRF'}}
+                onLoadSuccess={this.onDocumentLoad}
               >
-                <Page pageNumber={ pageNumber } />
+                <Page pageNumber={pageNumber} />
               </Document>
-              <p>Page { pageNumber } of { numPages }</p>
+              <p>Page {pageNumber} of {numPages}</p>
             </Segment>
           </Grid.Column>
         </Grid.Row>
