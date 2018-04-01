@@ -1,34 +1,43 @@
 import axios from 'axios';
+import {setHeaders} from '../actions/headers';
 export const INTERESTS = 'INTERESTS'
-export const ADD_INTEREST = 'ADD_INTEREST'
-export const UPDATE_INTEREST = 'UPDATE_INTEREST'
-export const DELETE_INTEREST = 'DELETE_INTEREST'
+export const UPDATE_INTERESTS = 'UPDATE_INTERESTS'
 
-export const getInterests = () => {
+export const getInterests = (cb = () => {}) => {
   return (dispatch) => {
-    axios.get('/api/interests')
-      .then(res => dispatch({ type: 'INTERESTS', interests: res.data }))
-  }
-}
+    axios
+      .get('/api/interests')
+      .then((res) => {
+        dispatch({
+          type: INTERESTS,
+          interests: res.data,
+        });
+        dispatch(setHeaders(res.headers));
+      })
+      .catch((res) => {
+        dispatch(setHeaders(res.headers));
+      })
+      .then(() => {
+        cb();
+      });
+  };
+};
 
-export const addInterest = (interest) => {
+export const updateInterests = (interests) => {
   return (dispatch) => {
-    axios.post('/api/interests', { interest })
-      .then(res => dispatch({ type: 'ADD_INTEREST', interest: res.data }))
-  }
-}
-
-export const updateInterest = (interest) => {
-  debugger
-  return (dispatch) => {
-    axios.put(`/api/interests/${ interest.id }`, { interest })
-      .then(res => dispatch({ type: 'UPDATE_INTEREST', interest: res.data }))
-  }
-}
-
-export const deleteInterest = (id) => {
-  return (dispatch) => {
-    axios.delete(`/api/interests/${ id }`)
-      .then(() => dispatch({ type: 'DELETE_INTEREST', id }))
-  }
-}
+    axios
+      .put(`/api/interests/${interests.id}`, {
+        interests,
+      })
+      .then((res) => {
+        dispatch({
+          type: UPDATE_INTERESTS,
+          interests: res.data,
+        });
+        dispatch(setHeaders(res.headers));
+      })
+      .catch((res) => {
+        dispatch(setHeaders(res.headers));
+      });
+  };
+};

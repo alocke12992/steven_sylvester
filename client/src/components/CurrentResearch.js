@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Grid, Header, Button} from 'semantic-ui-react'
+import {Button, Divider, Grid, Header, } from 'semantic-ui-react'
 import ResearchInterest from './ResearchInterest';
 import ResearchInterestForm from './ResearchInterestForm';
 
@@ -18,7 +18,7 @@ class CurrentResearch extends React.Component {
     const {showForm} = this.state
     return (
       <div>
-        <Grid>
+        <Grid centered>
           {user.role === 'admin' &&
             <Grid.Row>
               <Button onClick={this.toggleForm}>
@@ -31,6 +31,10 @@ class CurrentResearch extends React.Component {
               }
             </Grid.Row>
           }
+          <Divider hidden />
+          <Grid.Row>
+            <Header as='h2'>Current Research</Header>
+          </Grid.Row>
           <ResearchInterest />
         </Grid>
         {/* Topic

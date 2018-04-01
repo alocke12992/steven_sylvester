@@ -21,7 +21,7 @@ class ResearchInterestForm extends React.Component {
 
   state = {...this.initialState};
 
-  componentdidMount() {
+  componentDidMount() {
     if (this.props.id)
       this.setState({...this.props});
   }
@@ -62,7 +62,7 @@ class ResearchInterestForm extends React.Component {
             <input
               placeholder='Topic'
               name='topic'
-              value={topic}
+              value={this.state.topic}
               onChange={this.handleChange}
             />
           </Form.Field>
@@ -80,15 +80,15 @@ class ResearchInterestForm extends React.Component {
               Description
             </Header>
             <ReactQuill
-              value={this.state.body}
+              value={body}
               onChange={(value) => this.handleQuillChange(value, 'body')}
             />
             <Divider hidden />
           </Form.Field>
           <Form.Button
-            size="normal"
+            size="medium"
             color="green">
-            Submit All Changes
+            Submit
           </Form.Button>
         </Form>
       </Container>
@@ -106,19 +106,4 @@ class ResearchInterestForm extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const {
-    topic,
-    title,
-    body,
-    id,
-  } = state
-  return {
-    topic,
-    title,
-    body,
-    id,
-  };
-};
-
-export default connect(mapStateToProps)(ResearchInterestForm);
+export default connect()(ResearchInterestForm);

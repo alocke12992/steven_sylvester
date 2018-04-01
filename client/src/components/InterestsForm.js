@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
-import { connect } from 'react-redux';
-import { addInterest, updateInterest } from '../actions/interests';
+import {connect} from 'react-redux';
+import {updateInterests} from '../actions/interests';
 import {
   Button,
   Container,
@@ -13,49 +13,47 @@ import {
 } from 'semantic-ui-react';
 
 class InterestsForm extends React.Component {
-  state = { title: '', body: '' };
-
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value })
+  initialState = {
+    body: '',
+    id: null,
   }
+  state = {...this.initialState};
+
+  componentWillMount() {
+    this.setState({...this.props});
+  }
+
+  handleQuillChange = (value, name) => {
+    this.setState({[name]: value});
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const interest = { ...this.state }
-    const { dispatch, closeForm } = this.props;
-    const func = this.props.id ? updateInterest : addInterest
-    dispatch(func(interest))
-    this.setState({ title: '', body: '' })
-    closeForm();
-  }
-
+    const interests = {...this.state};
+    const {dispatch, closeForm} = this.props;
+    dispatch(updateInterests(interests));
+    closeForm()
+  };
 
   interests = () => {
-    const { title, body } = this.state;
+    const {body} = this.props;
     return (
       <Segment>
         <Header
           as="h1"
           color="teal"
           textAlign="center">
-          Add New Research Topic
+          Update Research Interests
         </Header>
         <Divider hidden />
-        <Form onSubmit={ this.handleSubmit }>
-          <Form.Input
-            name="title"
-            required
-            value={ title }
-            onChange={ this.handleChange }
-            label="Title"
-          />
-          <Form.Input
-            name="body"
-            value={ body }
-            onChange={ this.handleChange }
-            label="Body"
-          />
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Field>
+            <ReactQuill
+              value={this.state.body}
+              onChange={(value) => this.handleQuillChange(value, 'body')}
+            />
+            <Divider hidden />
+          </Form.Field>
           <Form.Button
             size="normal"
             floated="right"
@@ -69,11 +67,18 @@ class InterestsForm extends React.Component {
 
   render() {
     return (
-      <Grid.Column width={ 4 }>
-        { this.interests() }
+      <Grid.Column width={8}>
+        {this.interests()}
       </Grid.Column>
     );
   }
 }
+const mapStateToProps = (state) => {
+  const {body, id} = state.interests
+  return {
+    body,
+    id
+  }
+}
 
-export default connect()(InterestsForm);
+export default connect(mapStateToProps)(InterestsForm);

@@ -1,23 +1,14 @@
 import {
   INTERESTS,
-  ADD_INTEREST,
-  UPDATE_INTEREST,
-  DELETE_INTEREST,
+  UPDATE_INTERESTS,
 } from '../actions/interests';
 
-const interests = (state = [], action) => {
+const interests = (state = {}, action) => {
   switch (action.type) {
     case INTERESTS:
       return action.interests;
-    case ADD_INTEREST:
-      return [action.interest, ...state];
-    case UPDATE_INTEREST:
-      return state.map(a => {
-        if (a.id === action.interest.id) return action.interest;
-        return a;
-      });
-    case DELETE_INTEREST:
-      return state.filter(a => a.id !== action.id);
+    case UPDATE_INTERESTS:
+      return action.interests
     default:
       return state;
   }

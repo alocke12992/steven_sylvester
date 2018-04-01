@@ -1,8 +1,14 @@
-5.times do 
+3.times do 
   ResearchInterest.create(
     topic: Faker::Company.catch_phrase,
     title: Faker::Company.bs,
     body: Faker::Lorem.paragraph
+  )
+  end 
+
+1.times do 
+  Interest.create(
+    body: Faker::Lorem.paragraphs(3) 
   )
   end 
 
