@@ -1,22 +1,23 @@
 import React from 'react';
+import CvPdf from './CvPdf';
+import CvUploader from './CvUploader';
 import Interest from './Interest';
-import {Document, Page} from 'react-pdf';
-import {Divider, Grid, Header, Segment} from 'semantic-ui-react'
+import {connect} from 'react-redux';
+import {Button, Divider, Grid, Header, Icon, Segment} from 'semantic-ui-react'
 
 class Cv extends React.Component {
-  state = {
-    numPages: null,
-    pageNumber: 1,
-  }
+  state = {showForm: false}
 
-  onDocumentLoad = ({numPages}) => {
-    this.setState({numPages});
+  toggleForm = () => {
+    this.setState(state => {
+      return {showForm: !state.showForm}
+    })
   }
-
   render() {
-    const {pageNumber, numPages} = this.state;
+    const {user} = this.props
+    const {showForm} = this.state
     return (
-      <Grid>
+      <Grid centered>
         <Grid.Row>
           <Divider />
         </Grid.Row>
@@ -26,16 +27,26 @@ class Cv extends React.Component {
               <Interest />
             </Segment>
           </Grid.Column>
-          <Grid.Column>
+          <Grid.Column width={7}>
             <Segment>
+              {user.role === 'admin' &&
+                <div>
+                  <Button icon onClick={this.toggleForm}>
+                    {showForm ?
+                      <Icon name='delete' />
+                      :
+                      <Icon name='edit' />
+                    }
+                  </Button>
+                  {showForm ?
+                    <CvUploader />
+                    :
+                    null
+                  }
+                </div>
+              }
               <Header as='h2' textAlign='center'>CURRICULUM VITAE (Sept. 2017)</Header>
-              <Document
-                file={{url: 'https://drive.google.com/open?id=0B0uyzLguugkBdmhVMzhVRTZVdHBYczluZW5iZXBUTjh4dkRF'}}
-                onLoadSuccess={this.onDocumentLoad}
-              >
-                <Page pageNumber={pageNumber} />
-              </Document>
-              <p>Page {pageNumber} of {numPages}</p>
+              <CvPdf />
             </Segment>
           </Grid.Column>
         </Grid.Row>
@@ -43,5 +54,8 @@ class Cv extends React.Component {
     )
   }
 }
+const mapStateToProps = (state) => {
+  return {user: state.user}
+}
 
-export default Cv 
+export default connect(mapStateToProps)(Cv);
