@@ -6,8 +6,9 @@ export const UPDATE_CV = 'UPDATE_CV'
 
 export const getCv = (cb = () => {}) => {
   return (dispatch) => {
+    debugger
     axios
-      .get('/api/cvs')
+      .get('/api/cv')
       .then((res) => {
         dispatch({
           type: CV,
@@ -26,7 +27,9 @@ export const getCv = (cb = () => {}) => {
 
 export const addCv = (cv) => {
   return (dispatch) => {
-    axios.post("/api/cvs", {cv})
+    const data = new FormData()
+    data.append('file', cv)
+    axios.post("/api/cvs", data)
       .then((res) => {
         dispatch({type: ADD_CV, cv: res.data})
         dispatch(setHeaders(res.headers));

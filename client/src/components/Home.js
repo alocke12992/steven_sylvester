@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Bio from './Bio';
-import {Container, Divider, Grid, Header, Image, Menu, Segment} from 'semantic-ui-react';
+import {Divider, Grid, Image, } from 'semantic-ui-react';
 
 class Home extends Component {
   render() {

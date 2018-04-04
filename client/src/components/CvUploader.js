@@ -1,7 +1,7 @@
 import React from 'react'
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
-import {updateCv, addCv} from '../actions/cv';
+import {updateCv} from '../actions/settings';
 import {Form, Grid, Image, Button} from 'semantic-ui-react';
 
 class CvUploader extends React.Component {
@@ -15,7 +15,7 @@ class CvUploader extends React.Component {
     e.preventDefault();
     const {file} = this.state
     const {dispatch} = this.props;
-    dispatch(addCv({file}))
+    dispatch(updateCv({file}))
     this.setState({
       file: ''
     })
@@ -30,7 +30,7 @@ class CvUploader extends React.Component {
             onDrop={this.onDrop}
             multiple={false}
           >
-            {file && <Image src={file.preview} />}
+            {file}
           </Dropzone>
         </Grid.Column>
         <Grid.Column width={8}>

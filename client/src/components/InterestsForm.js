@@ -3,8 +3,6 @@ import ReactQuill from 'react-quill';
 import {connect} from 'react-redux';
 import {updateInterests} from '../actions/interests';
 import {
-  Button,
-  Container,
   Divider,
   Form,
   Grid,
@@ -36,7 +34,6 @@ class InterestsForm extends React.Component {
   };
 
   interests = () => {
-    const {body} = this.props;
     return (
       <Segment>
         <Header

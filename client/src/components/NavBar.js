@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
-import About from './About';
-import Cv from './Cv';
-import CurrentResearch from './CurrentResearch';
-import Publications from './Publications';
-import { Menu, Image, Header } from 'semantic-ui-react';
-import { Link, withRouter } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Menu, Image} from 'semantic-ui-react';
+import {Link, withRouter} from 'react-router-dom';
 
 class NavBar extends Component {
   rightNavs = () => {
@@ -29,12 +25,12 @@ class NavBar extends Component {
   render() {
     return (
       <div>
-        <Image src={ require( '../images/slcheader.jpg' ) } />
-        <Menu pointing secondary style={ styles.base }>
+        <Image src={require('../images/slcheader.jpg')} />
+        <Menu pointing secondary style={styles.base}>
           <Link to='/'>
             <Menu.Item name='home' />
           </Link>
-          { this.rightNavs() }
+          {this.rightNavs()}
         </Menu>
       </div>
     );
@@ -47,4 +43,4 @@ const styles = {
   }
 }
 
-export default withRouter( NavBar );
+export default withRouter(NavBar);

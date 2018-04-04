@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import BioForm from './BioForm'
-import {getBios, updateBios} from '../actions/bios';
-import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react';
+import {getBios} from '../actions/bios';
+import {Button, Container, Grid, Icon} from 'semantic-ui-react';
 
 class Bio extends React.Component {
   state = {showForm: false};

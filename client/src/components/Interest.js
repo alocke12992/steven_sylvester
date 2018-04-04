@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import InterestsForm from './InterestsForm'
-import {getInterests, updateInterest} from '../actions/interests';
+import {getInterests} from '../actions/interests';
 import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react';
 
 class Interests extends React.Component {

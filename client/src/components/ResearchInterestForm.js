@@ -3,13 +3,11 @@ import ReactQuill from 'react-quill';
 import {connect} from 'react-redux';
 import {addResearch, updateResearch} from '../actions/researchInterests';
 import {
-  Button,
   Container,
   Divider,
   Form,
   Grid,
   Header,
-  Segment,
 } from 'semantic-ui-react';
 
 class ResearchInterestForm extends React.Component {
@@ -46,7 +44,7 @@ class ResearchInterestForm extends React.Component {
   };
 
   researchForm = () => {
-    const {topic, title, body} = this.state;
+    const {title, body} = this.state;
     return (
       <Container>
         <Header

@@ -3,13 +3,10 @@ import ReactQuill from 'react-quill';
 import {connect} from 'react-redux';
 import {updateBios} from '../actions/bios';
 import {
-  Button,
-  Container,
   Divider,
   Form,
   Grid,
   Header,
-  Segment,
 } from 'semantic-ui-react';
 
 class BioForm extends React.Component {
@@ -36,7 +33,6 @@ class BioForm extends React.Component {
   };
 
   bios = () => {
-    const {body} = this.props;
     return (
       <Grid.Column>
         <Header

@@ -4,7 +4,7 @@ import {
   UPDATE_CV,
 } from '../actions/cv';
 
-const cv = (state = {}, action) => {
+const cv = (state = [], action) => {
   switch (action.type) {
     case CV:
       return action.cv;

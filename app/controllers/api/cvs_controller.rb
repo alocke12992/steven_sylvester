@@ -9,6 +9,16 @@ class Api::CvsController < ApplicationController
   def new 
   end 
 
+  def download_pdf
+    binding.pry
+    presigner = Aws::S3::Presigner.new
+    s3_bucket = ENV['BUCKET']
+    render json: { url: presigner.presigned_url(:get_object,
+                                                  bucket: s3_bucket,
+                                                  file: params[:file],
+                                                ).to_s }
+  end 
+
   def create
     s3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
     s3_bucket = ENV['BUCKET']

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     resources :research_interests
     resources :bios, only: [:index, :update]
     resources :cvs, only: [:index, :new, :create, :update]
+    resources :settings, only: [:index]
+    get '/cv', to: 'cvs#download_pdf'
+    put '/settings/:id/update_cv', to: 'settings#update_cv'
   end
 
   #Do not place any routes below this one

@@ -5,6 +5,7 @@ import user from './user';
 import flash from './flash';
 import interests from './interests';
 import researchInterests from './researchInterests';
+import settings from './settings'
 
 const rootReducer = combineReducers({
   user,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   researchInterests,
   bios,
   cv,
+  settings,
 });
 
 export default rootReducer;

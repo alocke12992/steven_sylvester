@@ -1,20 +1,11 @@
 import React, {Component} from 'react';
-import NoMatch from './NoMatch';
-import NavBar from './NavBar';
-import Login from './Login';
-import Register from './Register';
-import Flash from './Flash';
-import Home from './Home';
-import ProtectedRoute from './ProtectedRoute';
-import AuthRoute from './AuthRoute';
-import FetchUser from './FetchUser';
-import {Switch, Route} from 'react-router-dom';
-import Cv from './Cv';
-import Publications from './Publications';
-import About from './About';
-import CurrentResearch from './CurrentResearch';
-import FetchResearch from './FetchResearch';
 import Footer from './Footer'
+import FetchSettings from './FetchSettings';
+import FetchUser from './FetchUser';
+import Flash from './Flash';
+import NavBar from './NavBar';
+import {Switch} from 'react-router-dom';
+
 
 class App extends Component {
   render() {
@@ -24,13 +15,7 @@ class App extends Component {
         <Flash />
         <FetchUser>
           <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/about' component={About} />
-            <Route exact path='/vitae' component={Cv} />
-            <Route exact path='/publications' component={Publications} />
-            <Route path='/current_research' component={FetchResearch} />
-            <AuthRoute exact path='/login' component={Login} />
-            <Route component={NoMatch} />
+            <FetchSettings />
           </Switch>
         </FetchUser>
         <Footer />
@@ -40,3 +25,4 @@ class App extends Component {
 }
 
 export default App;
+

@@ -1,7 +1,5 @@
 import React from 'react';
-import myPdf from '../files/cv.pdf'
 import {connect} from 'react-redux';
-// import {getCv} from '../actions/cv';
 import {Document, Page} from 'react-pdf'
 
 class CvPdf extends React.Component {
@@ -11,23 +9,18 @@ class CvPdf extends React.Component {
     // file: ''
   }
 
-  // componentWillMount = () => {
-  //   const {dispatch} = this.props
-  //   dispatch(getCv)
-  //   this.setState({...this.props})
-
-  // }
-
   onDocumentLoad = ({numPages}) => {
     this.setState({numPages});
   }
 
   render() {
     const {pageNumber, numPages} = this.state;
+    const {cv} = this.props
+
     return (
       <div>
         <Document
-          file={myPdf}
+          file={cv}
           onLoadSuccess={this.onDocumentLoad}
         >
           <Page pageNumber={pageNumber} />
@@ -38,4 +31,11 @@ class CvPdf extends React.Component {
   }
 }
 
-export default connect()(CvPdf);
+const mapStateToProps = (state) => {
+  const {settings} = state
+  return {
+    cv: settings.pdf_url
+  }
+}
+
+export default connect(mapStateToProps)(CvPdf);
