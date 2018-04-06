@@ -42,10 +42,9 @@ export const addCv = (cv) => {
 
 export const updateCv = (cv) => {
   return (dispatch) => {
-    axios
-      .put(`/api/cvs/${cv.id}`, {
-        cv,
-      })
+    const data = new FormData()
+    data.append('file', cv)
+    axios.put(`/api/cvs/${cv.id}/update_cv`, data)
       .then((res) => {
         dispatch({
           type: UPDATE_CV,

@@ -5,24 +5,21 @@ import {updateCv} from '../actions/settings';
 import {Form, Grid, Image, Button} from 'semantic-ui-react';
 
 class CvUploader extends React.Component {
-  state = {file: ''}
+  state = {pdf_url: ''}
 
   onDrop = (files) => {
-    this.setState({file: files[0]})
+    this.setState({pdf_url: files[0]})
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const {file} = this.state
-    const {dispatch} = this.props;
-    dispatch(updateCv({file}))
-    this.setState({
-      file: ''
-    })
+    const {pdf_url} = this.state
+    const {dispatch, id} = this.props;
+    dispatch(updateCv(pdf_url, id))
   }
 
   render() {
-    const {file} = this.state
+    const {pdf_url} = this.state
     return (
       <Form onSubmit={this.handleSubmit}>
         <Grid.Column width={4}>
@@ -30,7 +27,6 @@ class CvUploader extends React.Component {
             onDrop={this.onDrop}
             multiple={false}
           >
-            {file}
           </Dropzone>
         </Grid.Column>
         <Grid.Column width={8}>
@@ -42,7 +38,10 @@ class CvUploader extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {cv: state.cv}
+  const {settings} = state
+  return {
+    id: settings.id
+  }
 }
 
 export default connect(mapStateToProps)(CvUploader)

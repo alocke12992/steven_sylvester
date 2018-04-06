@@ -26,9 +26,11 @@ export const fetchSettings = (cb = () => {}) => {
 };
 
 export const updateCv = (file, id) => {
+  debugger
   return (dispatch) => {
     const data = new FormData();
     data.append('file', file)
+
     let url = `/api/settings/${id}/update_cv`
     axios.put(url, data)
       .then(res => {

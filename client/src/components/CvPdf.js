@@ -6,7 +6,6 @@ class CvPdf extends React.Component {
   state = {
     numPages: null,
     pageNumber: 1,
-    // file: ''
   }
 
   onDocumentLoad = ({numPages}) => {
