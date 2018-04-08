@@ -37,10 +37,6 @@ class CurrentResearch extends React.Component {
           </Grid.Row>
           <ResearchInterest />
         </Grid>
-        {/* Topic
-          Title 
-          Body/Description (react Quill)
-        */}
       </div>
     )
   }

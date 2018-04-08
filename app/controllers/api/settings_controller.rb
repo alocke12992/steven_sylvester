@@ -7,7 +7,6 @@ class Api::SettingsController < ApplicationController
   end
 
   def update_cv 
-    binding.pry
     s3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
     s3_bucket = ENV['BUCKET']
     file = params[:file]

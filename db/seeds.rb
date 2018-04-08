@@ -27,6 +27,18 @@
   )
 end 
 
+5.times do
+  Publication.create(
+    title: Faker::Book.title, 
+    abstract: Faker::Hipster.paragraph,
+    authors: Faker::Name.name_with_middle, 
+    file: Faker::File.file_name('path/to'),
+    journal: Faker::Company.name,
+    links: Faker::Internet.url,
+    date: Faker::Date.birthday(18, 65), 
+  )
+  end
+
 Setting.create()
 
 puts 'Setting created with defaults'

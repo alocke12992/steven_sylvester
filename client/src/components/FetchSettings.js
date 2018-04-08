@@ -8,6 +8,7 @@ import Cv from './Cv';
 import Publications from './Publications';
 import About from './About';
 import FetchResearch from './FetchResearch';
+import FetchPublications from './FetchPublications';
 import {connect} from 'react-redux';
 import {fetchSettings} from '../actions/settings';
 import {Route, Switch, } from 'react-router-dom';
@@ -31,8 +32,8 @@ class FetchSettings extends React.Component {
           <Route exact path='/' component={Home} />
           <Route exact path='/about' component={About} />
           <Route exact path='/vitae' component={Cv} />
-          <Route exact path='/publications' component={Publications} />
           <Route path='/current_research' component={FetchResearch} />
+          <Route path='/publications' component={FetchPublications} />
           <AuthRoute exact path='/login' component={Login} />
           <Route component={NoMatch} />
         </Switch>

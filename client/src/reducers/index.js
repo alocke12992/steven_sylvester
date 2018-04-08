@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import bios from './bios';
-import cv from './cv';
+import publications from './publications';
 import user from './user';
 import flash from './flash';
 import interests from './interests';
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   interests,
   researchInterests,
   bios,
-  cv,
+  publications,
   settings,
 });
 
