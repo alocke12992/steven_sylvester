@@ -9,11 +9,8 @@ class Api::EmailsController < ApplicationController
       if @email.save
         # Tell the emailMailer to send a welcome email after save
         ContactMailer.welcome_email(@email).deliver_now
- 
-        format.html { redirect_to(@email, notice: 'email was successfully created.') }
         format.json { render json: @email, status: :created, location: @email }
       else
-        format.html { render action: 'new' }
         format.json { render json: @email.errors, status: :unprocessable_entity }
       end
     end 
