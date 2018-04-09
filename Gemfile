@@ -31,9 +31,9 @@ gem 'devise_token_auth'
 gem 'aws-sdk-s3'
 gem 'mail'
 gem "responders" 
+gem 'faker'
 
 group :development, :test do
-  gem 'faker'
   gem 'pry'
   gem 'dotenv-rails'
 end
