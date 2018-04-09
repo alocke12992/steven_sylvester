@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :publications
     get '/cv', to: 'cvs#download_pdf'
     put '/settings/:id/update_cv', to: 'settings#update_cv'
+    put '/settings/:id/update_avatar', to: 'settings#update_avatar'
+    post '/emails', to: 'emails#create'
   end
 
   #Do not place any routes below this one

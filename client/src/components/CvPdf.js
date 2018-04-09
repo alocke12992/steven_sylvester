@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Document, Page} from 'react-pdf';
-import {Button, Icon} from 'semantic-ui-react';
+import {Button, Icon, Container, Grid} from 'semantic-ui-react';
 
 class CvPdf extends React.Component {
   state = {
     numPages: null,
-    page: 5,
+    page: 1,
   }
 
   onDocumentLoad = ({numPages}) => {
@@ -56,7 +56,7 @@ class CvPdf extends React.Component {
     const {cv} = this.props
 
     return (
-      <div>
+      <Container fluid>
         <p>Page {page} of {numPages}</p>
         {this.pageChanger()}
         <Document
@@ -66,7 +66,7 @@ class CvPdf extends React.Component {
           <Page pageNumber={page} />
         </Document>
         <a target='_blank' href={cv}>Download</a>
-      </div>
+      </Container>
     );
   }
 }

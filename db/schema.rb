@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180406091352) do
+ActiveRecord::Schema.define(version: 20180408223219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20180406091352) do
 
   create_table "cvs", force: :cascade do |t|
     t.string "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email_address"
+    t.string "subject"
+    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -61,7 +71,7 @@ ActiveRecord::Schema.define(version: 20180406091352) do
 
   create_table "settings", force: :cascade do |t|
     t.string "pdf_url", default: "https://s3.amazonaws.com/sylvester/Cv/cv.pdf"
-    t.string "avatar_url"
+    t.string "avatar_url", default: "https://s3.amazonaws.com/sylvester/images/profile.jpg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

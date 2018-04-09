@@ -29,6 +29,9 @@ gem 'omniauth'
 gem 'devise'
 gem 'devise_token_auth'
 gem 'aws-sdk'
+gem 'mail'
+gem "responders" 
+
 group :development, :test do
   gem 'faker'
   gem 'pry'

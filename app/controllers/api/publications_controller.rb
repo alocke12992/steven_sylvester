@@ -33,18 +33,35 @@ class Api::PublicationsController < ApplicationController
 				handle_error(publication)
 			end
     rescue => e
-      binding.pry
 			render json: { errors: e }, status: 422
 		end
   end
 
-  def update
-    if @publication.update(research_params)
-      render json: @publication
-    else
-      render json: { errors: @publication.errors.full_messages.join(',') }, status: 422
+def update
+    s3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
+    s3_bucket = ENV['BUCKET']
+    @publication.title = params[:title]
+    @publication.authors = params[:authors]
+    @publication.abstract = params[:abstract]
+    @publication.journal = params[:journal]
+    @publication.links = params[:links]
+    @publication.date = params[:date]
+    file = params[:file]
+    begin
+      ext = File.extname(file.tempfile)
+      obj = s3.bucket(s3_bucket).object("avatars/#{@publication.id}#{ext}")
+      obj.upload_file(file.tempfile, acl: 'public-read')
+      @publication.file = obj.public_url
+      if @publication.save
+        render json: @publication
+      else
+        render json: { errors: @publication.errors.full_messages.join(',') }, status: 422
+      end
+    rescue => e 
+      render json: {errors: e}, status: 422
     end
   end
+
 
   def destroy
     @publication.destroy

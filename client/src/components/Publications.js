@@ -43,12 +43,12 @@ class Publications extends React.Component {
 
           <List.Item key={publication.id}>
             {
-              editing ? <PublicationForm />
+              editing ? <PublicationForm closeForm={this.toggleForm} />
                 :
                 <div>
                   <List.Description>{publication.authors}</List.Description>
-                  <List.Header as='a' href={publication.file}>{publication.title}</List.Header>
-                  <List.Description><a href={publication.links}>{publication.journal}</a></List.Description>
+                  <List.Header as='a' target='_blank' href={publication.file}>{publication.title}</List.Header>
+                  <List.Description><a target='_blank' href={publication.links}>{publication.journal}</a></List.Description>
                   <List horizontal divided>
                     <List.Item content={<Toggle onClick={this.toggleAbstract}>Abstract</Toggle>} />
                     <List.Item content={<Toggle onClick={this.toggleLinks}>Links</Toggle>} />
@@ -65,9 +65,10 @@ class Publications extends React.Component {
                   {
                     showLinks ?
                       <div>
-                        <List.Description><a href={publication.links}>Journal</a></List.Description>
-                        <List.Description><a href={publication.file}>Download Paper</a></List.Description>
-                        <Toggle onClick={this.toggleLinks}>Close</Toggle>
+                        <Divider hidden />
+                        <List.Description><a target='_blank' href={publication.links}>Journal</a></List.Description>
+                        <List.Description><a target='_blank' href={publication.file}>Download Paper</a></List.Description>
+                        <Close onClick={this.toggleLinks}>Close</Close>
                       </div>
                       :
                       null
@@ -149,6 +150,9 @@ const Toggle = styled(Button) `
   padding: 0 !important;
   margin-top: 5px !important;
   margin-bottom: 5px !important;
+`
+const Close = styled(Toggle) `
+  padding: 10px !important;
 `
 
 

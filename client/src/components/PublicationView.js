@@ -15,7 +15,6 @@ class PublicationView extends React.Component {
   }
 
   deletePublication = () => {
-    debugger
     const {publication: {id}, dispatch, history} = this.props
     dispatch(deletePublication(id))
     history.push('/publications')

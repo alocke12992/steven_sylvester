@@ -43,6 +43,22 @@ export const updateCv = (file, id) => {
   }
 }
 
+export const updateAvatar = (file, id) => {
+  return (dispatch) => {
+    const data = new FormData();
+    data.append('file', file)
+    let url = `/api/settings/${id}/update_avatar`
+    axios.put(url, data)
+      .then(res => {
+        dispatch({
+          type: UPDATE_SETTINGS,
+          settings: res.data,
+        })
+        dispatch(setHeaders(res.headers))
+      })
+  }
+}
+
 export const updateSettings = (settings) => {
   return (dispatch) => {
     axios

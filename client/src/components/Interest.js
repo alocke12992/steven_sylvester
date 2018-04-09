@@ -50,7 +50,7 @@ class Interests extends React.Component {
               }
               <Grid.Column width={8}>
                 <Header as='h2' textAlign='center'>Research Interests</Header>
-                <Container text>
+                <Container fluid>
                   <div
                     dangerouslySetInnerHTML={this.createMarkup(body)}
                   />

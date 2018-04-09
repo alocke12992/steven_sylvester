@@ -20,6 +20,7 @@ class PublicationForm extends React.Component {
     journal: '',
     date: '',
     links: '',
+    id: '',
   };
 
   state = {...this.initialState};
@@ -38,12 +39,12 @@ class PublicationForm extends React.Component {
     this.setState({[name]: value});
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = () => {
     const publication = {...this.state};
     const {dispatch, closeForm} = this.props;
     const func = this.props.id ? updatePublication : addPublication
     dispatch(func(publication));
+    this.setState({...this.initialState})
     closeForm()
   };
 

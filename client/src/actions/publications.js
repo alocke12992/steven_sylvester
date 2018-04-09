@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {setHeaders} from '../actions/headers';
+import {setHeaders} from './headers';
 export const PUBLICATIONS = 'PUBLICATIONS'
 export const ADD_PUBLICATION = 'ADD_PUBLICATION'
 export const UPDATE_PUBLICATION = 'UPDATE_PUBLICATION'
@@ -34,11 +34,11 @@ export const addPublication = (p) => {
   }
 }
 
-export const updatePublication = (publication, id) => {
+export const updatePublication = (p) => {
   return (dispatch) => {
     const data = new FormData()
-    data.append('file', publication)
-    axios.put(`/api/publications/${id}`, data)
+    data.append('file', p.file)
+    axios.put(`/api/publications/${p.id}?title=${p.title}&abstract=${p.abstract}&authors=${p.authors}&journal=${p.journal}&links=${p.links}&date=${p.date}`, data)
       .then((res) => {
         dispatch({
           type: UPDATE_PUBLICATION,
@@ -53,7 +53,6 @@ export const updatePublication = (publication, id) => {
 };
 
 export const deletePublication = (id) => {
-  debugger
   return (dispatch) => {
     axios.delete(`/api/publications/${id}`)
       .then(res => dispatch({type: DELETE_PUBLICATION, id, headers: res.headers}))
