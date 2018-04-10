@@ -2,7 +2,7 @@ class ContactMailer < ApplicationMailer
 
   def welcome_email(email)
     @email = email
-    @url = 'http://theandrewlocke.com'
-    mail(to: @email.email_address, subject: 'Thanks for your email')
+    admin = 'SSylvester@uvu.edu'
+    mail(to: admin, subject: 'You have a new message')
   end
 end

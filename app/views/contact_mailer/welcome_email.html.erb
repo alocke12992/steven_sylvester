@@ -6,20 +6,22 @@
 </head>
 
 <body>
-  <h1>Welcome to example.com,
+  <h1>You've got mail from
     <%= @email.first_name %>
+      <%= @email.last_name %>
   </h1>
   <p>
-    Your email was:
-    <%= @email.subject %>.
+    Their Email:
+    <%= @email.email_address %>
       <br>
-      <%= @email.content %>
+
   </p>
   <p>
-    To login to the site, just follow this link:
-    <%= @url %>.
+    They Said: Subject:
+    <%= @email.subject %>
+      Body:
+      <%= @email.content %>
   </p>
-  <p>Thanks for joining and have a great day!</p>
 </body>
 
 </html>
