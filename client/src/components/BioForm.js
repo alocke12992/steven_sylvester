@@ -13,7 +13,7 @@ class BioForm extends React.Component {
   initialState = {
     body: '',
     id: null,
-  }
+  } 
   state = {...this.initialState};
 
   componentWillMount() {
