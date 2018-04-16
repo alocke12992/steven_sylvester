@@ -1,3 +1,4 @@
+
 3.times do 
   ResearchInterest.create(
     topic: Faker::Company.catch_phrase,
@@ -27,6 +28,8 @@
   )
 end 
 
+types = ['Book Chapter', 'Journal Article', 'Blog Post']
+
 5.times do
   Publication.create(
     title: Faker::Book.title, 
@@ -36,6 +39,7 @@ end
     journal: Faker::Company.name,
     links: Faker::Internet.url,
     date: Faker::Date.birthday(18, 65), 
+    pub_type: types.sample
   )
   end
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+
+<body>
+  <h1>You've got mail from
+    <%= @email.first_name %>
+      <%= @email.last_name %>
+  </h1>
+  <p>
+    Their Email:
+    <%= @email.email_address %>
+      <br>
+
+  </p>
+  <p>
+    They Said: Subject:
+    <%= @email.subject %>
+      Messsage:
+      <%= @email.content %>
+  </p>
+</body>
+
+</html>

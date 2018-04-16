@@ -49,7 +49,7 @@ class Bio extends React.Component {
                 </Grid.Column>
               }
               <Grid.Column width={8}>
-                <Container text>
+                <Container fluid>
                   <div
                     dangerouslySetInnerHTML={this.createMarkup(body)}
                   />

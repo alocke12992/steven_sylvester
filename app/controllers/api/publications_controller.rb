@@ -22,11 +22,15 @@ class Api::PublicationsController < ApplicationController
     publication.journal = params[:journal]
     publication.links = params[:links]
     publication.date = params[:date]
+    publication.pub_type = params[:pub_type]
     file = params[:file]
     begin
-      obj = s3.bucket(s3_bucket).object("publications/#{file.original_filename}")
-      obj.upload_file(file.tempfile, acl: 'public-read' )
-      publication.file = obj.public_url
+      if !file.blank?
+        ext = File.extname(file.tempfile)
+        obj = s3.bucket(s3_bucket).object("publications/#{publication.id}#{ext}")
+        obj.upload_file(file.tempfile, acl: 'public-read' )
+        publication.file = obj.public_url
+      end
       if publication.save
 				render json: publication
 			else
@@ -46,12 +50,15 @@ def update
     @publication.journal = params[:journal]
     @publication.links = params[:links]
     @publication.date = params[:date]
+    @publication.pub_type = params[:pub_type]
     file = params[:file]
     begin
-      ext = File.extname(file.tempfile)
-      obj = s3.bucket(s3_bucket).object("avatars/#{@publication.id}#{ext}")
-      obj.upload_file(file.tempfile, acl: 'public-read')
-      @publication.file = obj.public_url
+      if !file.blank? 
+        ext = File.extname(file.tempfile)
+        obj = s3.bucket(s3_bucket).object("publications/#{@publication.id}#{ext}")
+        obj.upload_file(file.tempfile, acl: 'public-read')
+        @publication.file = obj.public_url
+      end 
       if @publication.save
         render json: @publication
       else
@@ -73,6 +80,6 @@ def update
     end
 
     def publication_params
-      params.permit(:title, :abstract, :authors, :file, :journal, :links, :date)
+      params.permit(:title, :abstract, :authors, :file, :journal, :links, :date, :pub_type )
     end
 end

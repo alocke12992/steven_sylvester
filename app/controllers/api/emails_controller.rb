@@ -8,7 +8,9 @@ class Api::EmailsController < ApplicationController
     respond_to do |format|
       if @email.save
         # Tell the emailMailer to send a welcome email after save
+        ContactMailer.contact_email(@email).deliver_now
         ContactMailer.welcome_email(@email).deliver_now
+        format.html { render(:text => "not implemented") }
         format.json { render json: @email, status: :created, location: @email }
       else
         format.json { render json: @email.errors, status: :unprocessable_entity }

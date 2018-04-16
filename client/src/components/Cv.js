@@ -29,23 +29,6 @@ class Cv extends React.Component {
           </Grid.Column>
           <Grid.Column width={7}>
             <Segment>
-              {user.role === 'admin' &&
-                <div>
-                  <Button icon onClick={this.toggleForm}>
-                    {showForm ?
-                      <Icon name='delete' />
-                      :
-                      <Icon name='edit' />
-                    }
-                  </Button>
-                  {showForm ?
-                    <CvUploader />
-                    :
-                    null
-                  }
-                </div>
-              }
-              <Header as='h2' textAlign='center'>CURRICULUM VITAE (Sept. 2017)</Header>
               <CvPdf />
             </Segment>
           </Grid.Column>

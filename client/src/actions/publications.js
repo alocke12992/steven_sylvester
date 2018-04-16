@@ -23,7 +23,7 @@ export const addPublication = (p) => {
   return (dispatch) => {
     const data = new FormData()
     data.append('file', p.file)
-    axios.post(`/api/publications?title=${p.title}&abstract=${p.abstract}&authors=${p.authors}&journal=${p.journal}&links=${p.links}&date=${p.date}`, data)
+    axios.post(`/api/publications?title=${p.title}&abstract=${p.abstract}&authors=${p.authors}&journal=${p.journal}&links=${p.links}&date=${p.date}&pub_type=${p.pub_type}`, data)
       .then((res) => {
         dispatch({type: ADD_PUBLICATION, publication: res.data})
         dispatch(setHeaders(res.headers));
@@ -38,11 +38,11 @@ export const updatePublication = (p) => {
   return (dispatch) => {
     const data = new FormData()
     data.append('file', p.file)
-    axios.put(`/api/publications/${p.id}?title=${p.title}&abstract=${p.abstract}&authors=${p.authors}&journal=${p.journal}&links=${p.links}&date=${p.date}`, data)
+    axios.put(`/api/publications/${p.id}?title=${p.title}&abstract=${p.abstract}&authors=${p.authors}&journal=${p.journal}&links=${p.links}&date=${p.date}&pub_type=${p.pub_type}`, data)
       .then((res) => {
         dispatch({
           type: UPDATE_PUBLICATION,
-          cv: res.data,
+          publication: res.data,
         });
         dispatch(setHeaders(res.headers));
       })

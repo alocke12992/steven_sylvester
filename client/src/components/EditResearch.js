@@ -1,6 +1,7 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react'
+import React from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {Button, Container, Grid, Header, Icon, Divider} from 'semantic-ui-react';
 import {deleteResearch} from '../actions/researchInterests';
 import ResearchInterestForm from './ResearchInterestForm';
 
@@ -38,31 +39,39 @@ class EditResearch extends React.Component {
     const {research = {}} = this.props
     const {showForm} = this.state
     return (
-      <Grid.Row columns={3}>
-        {
-          showForm ? this.form({research})
-            :
-            <div>
-              <Grid.Column width={8}>
-                <Container text>
-                  <Header size='medium'>{research.topic}</Header>
-                  <Header size='small'>{research.title}</Header>
-                  <div
-                    dangerouslySetInnerHTML={this.createMarkup(research.body)}
-                  />
-                </Container>
-              </Grid.Column>
-              <Grid.Column width={2}>
-                <Button icon onClick={this.toggleForm}>
-                  <Icon name='edit' />
-                </Button>
-                <Button icon onClick={this.deletePost}>
-                  <Icon name='delete' />
-                </Button>
-              </Grid.Column>
-            </div>
-        }
-      </Grid.Row>
+      <Grid centered>
+      <Divider hidden/>
+        <Grid.Row centered>
+          {
+            showForm ? this.form({research})
+              :
+              <div>
+                <Grid.Column width={12}>
+                  <Container text>
+                    <Header size='medium'>{research.topic}</Header>
+                    <Header size='small'>{research.title}</Header>
+                    <div
+                      dangerouslySetInnerHTML={this.createMarkup(research.body)}
+                    />
+                  </Container>
+                </Grid.Column>
+              </div>
+          }
+        </Grid.Row>
+        <Grid.Row centered>
+            <Button  onClick={this.toggleForm}>
+              Edit
+            </Button>
+            <Button  onClick={this.deletePost}>
+              Delete
+            </Button>
+          </Grid.Row> 
+          <Grid.Row>
+            <Link to='/current_research'>
+              <Button>Back</Button>
+            </Link>
+        </Grid.Row>
+      </Grid>
     )
   }
 }

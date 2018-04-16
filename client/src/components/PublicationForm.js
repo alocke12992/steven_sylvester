@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import {addPublication, updatePublication} from '../actions/publications';
@@ -20,18 +20,22 @@ class PublicationForm extends React.Component {
     journal: '',
     date: '',
     links: '',
+    pub_type: 'Book Chapter',
     id: '',
   };
 
-  state = {...this.initialState};
+  
+
+  state = {...this.initialState, current_file: '', files: []};
 
   componentDidMount() {
+    const {title, abstract, authors, journal, date, links, pub_type, id, file} = this.props
     if (this.props.id)
-      this.setState({...this.props});
+      this.setState({title, abstract, authors, journal, date, links, pub_type, id, current_file: file});
   }
 
   onDrop = (files) => {
-    this.setState({file: files[0]})
+    this.setState({file: files[0], files})
   }
 
   handleChange = (e) => {
@@ -39,25 +43,47 @@ class PublicationForm extends React.Component {
     this.setState({[name]: value});
   };
 
-  handleSubmit = () => {
+  handleSelect = (e) => {
+    this.setState({pub_type: e.target.value})
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
     const publication = {...this.state};
     const {dispatch, closeForm} = this.props;
     const func = this.props.id ? updatePublication : addPublication
     dispatch(func(publication));
-    this.setState({...this.initialState})
+    this.setState({
+      ...this.initialState,
+      current_file: '',
+      files: []
+    })
     closeForm()
   };
 
-
-
-  researchForm = () => {
-    const {title, abstract, authors, file, journal, links, date} = this.state;
+ render(){
+    const {
+      title, 
+      abstract, 
+      authors, 
+      file, 
+      journal, 
+      links, 
+      date, 
+      files, 
+      pub_type, 
+      type,
+      current_file,
+    } = this.state;
     return (
       <Container>
         <Header
           as="h1"
-          textAlign="center">
-          Add Publication
+          textAlign="center">{this.props.id ? 
+            'Edit Publication' 
+            : 
+            'Add Publication'
+          }
         </Header>
         <Divider hidden />
         <Form onSubmit={this.handleSubmit}>
@@ -80,20 +106,25 @@ class PublicationForm extends React.Component {
             />
           </Form.Field>
           <Segment>
-            <Header as="h4">Journal</Header>
+            <Header as='h3'>Publication Type: {pub_type}</Header>
+            <Form.Field label='Publication Type' fluid='true' value={pub_type} onChange={this.handleSelect} control='select'>
+            <option value='Book Chapter'>Book Chapter</option>
+            <option value='Journal Article'>Journal Article</option>
+            <option value='Blog Post'>Blog Post</option>
+            </Form.Field>
             <Form.Field>
-              <label>Journal Name</label>
+              <label>Name of Book/Journal/Blog</label>
               <input
-                placeholder='Journal Name'
+                placeholder='Name'
                 name='journal'
                 value={journal}
                 onChange={this.handleChange}
               />
             </Form.Field>
             <Form.Field>
-              <label>Journal Link</label>
+              <label>Link to Source</label>
               <input
-                placeholder='Journal Link'
+                  placeholder='Link'
                 name='links'
                 value={links}
                 onChange={this.handleChange}
@@ -116,12 +147,25 @@ class PublicationForm extends React.Component {
             value={abstract}
             onChange={this.handleChange}
           />
-          <Form.Field>
+          <Form.Field> 
+            {
+            files.length > 0 ?
+              <p>You have selected {files.length} file</p>
+            :
+            <div>
+              {
+                this.props.id ? 
+                <p>CurrentFile:<br /><iframe src={current_file}></iframe></p>
+                :
+                null
+              }
             <Dropzone
-              onDrop={this.onDrop}
-              multiple={false}
+            onDrop={this.onDrop}
+            multiple={false}
             >
             </Dropzone>
+            </div>
+          }
           </Form.Field>
           <Form.Button
             size="medium"
@@ -132,14 +176,7 @@ class PublicationForm extends React.Component {
       </Container>
     );
   };
-
-  render() {
-    return (
-      <div>
-        {this.researchForm()}
-      </div>
-    );
-  }
 }
+
 
 export default connect()(PublicationForm);

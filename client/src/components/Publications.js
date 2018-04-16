@@ -1,13 +1,21 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Grid, Divider, Header, List, Button, Icon} from 'semantic-ui-react';
-import {getPublications} from '../actions/publications';
-import styled from 'styled-components'
+import {getPublications, deletePublication} from '../actions/publications';
+import styled from 'styled-components';
 import PublicationForm from './PublicationForm';
+import PublicationView from './PublicationView';
+
 import {Link} from 'react-router-dom';
 
 class Publications extends React.Component {
   state = {publications: [], showForm: false, editing: false, showAbstract: false, showLinks: false}
+
+  deletePub = (id) => {
+    debugger
+    const {dispatch, history} = this.props
+    dispatch(deletePublication(id))
+  }
 
   toggleForm = () => {
     this.setState(state => {
@@ -15,91 +23,28 @@ class Publications extends React.Component {
     })
   }
 
-  toggleEdit = () => {
-    this.setState(state => {
-      return {
-        editing: !state.editing
-      }
-    })
+  form = () => {
+    return (
+      <Grid.Column width={6}>
+        <Button onClick={this.toggleForm}>
+          Cancel
+        </Button>
+        <PublicationForm closeForm={this.toggleForm} />
+      </Grid.Column>
+    )
   }
 
-  toggleAbstract = () => {
-    this.setState(state => {
-      return {showAbstract: !state.showAbstract, showLinks: false}
-    })
-  }
-  toggleLinks = () => {
-    this.setState(state => {
-      return {showLinks: !state.showLinks, showAbstract: false}
-    })
-  }
-
-  showPubs = (publication) => {
+  showPubs = () => {
     const {publications, user} = this.props
-    const {showAbstract, showLinks, editing} = this.state
     return (
       publications.map((publication) => {
         return (
-
-          <List.Item key={publication.id}>
-            {
-              editing ? <PublicationForm closeForm={this.toggleForm} />
-                :
-                <div>
-                  <List.Description>{publication.authors}</List.Description>
-                  <List.Header as='a' target='_blank' href={publication.file}>{publication.title}</List.Header>
-                  <List.Description><a target='_blank' href={publication.links}>{publication.journal}</a></List.Description>
-                  <List horizontal divided>
-                    <List.Item content={<Toggle onClick={this.toggleAbstract}>Abstract</Toggle>} />
-                    <List.Item content={<Toggle onClick={this.toggleLinks}>Links</Toggle>} />
-                  </List>
-                  {
-                    showAbstract ?
-                      <div>
-                        <List.Description >{publication.abstract}</List.Description>
-                        <Toggle onClick={this.toggleAbstract}>Close</Toggle>
-                      </div>
-                      :
-                      null
-                  }
-                  {
-                    showLinks ?
-                      <div>
-                        <Divider hidden />
-                        <List.Description><a target='_blank' href={publication.links}>Journal</a></List.Description>
-                        <List.Description><a target='_blank' href={publication.file}>Download Paper</a></List.Description>
-                        <Close onClick={this.toggleLinks}>Close</Close>
-                      </div>
-                      :
-                      null
-                  }
-                </div>
-            }
-            {user.role === 'admin' &&
-              <div>
-                <Button icon>
-                  <Link to={`/publications/${publication.id}`} >
-                    <Icon name='settings' />
-                  </Link>
-                </Button>
-              </div>
-            }
-          </List.Item>
+          <PublicationView key={publication.id} publication={publication} id={publication.id} showForm={this.toggleForm}/>
         )
       }
-      )
     )
-  }
-
-  form = () => {
-    return (
-      <Grid.Row centered>
-        <Grid.Column width={10}>
-          <PublicationForm closeForm={this.toggleForm} />
-        </Grid.Column>
-      </Grid.Row>
-    )
-  }
+  )
+}
 
   render() {
     const {showForm} = this.state
@@ -109,31 +54,35 @@ class Publications extends React.Component {
         <Divider hidden />
         <Grid.Row>
           {
-            user.role === 'admin' &&
-            <Button icon onClick={this.toggleForm}>
-              {
-                showForm ?
-
-                  <Icon name='minus' />
-                  :
-                  <Icon name='plus' />
-              }
-            </Button>
+            user.role === 'admin' && 
+              <div>
+                {
+                  showForm === false &&
+                    <Button icon onClick={this.toggleForm}>
+                      <Icon name='plus' />
+                    </Button>
+                }
+              </div>
           }
-          <Header>Publications</Header>
         </Grid.Row>
         {showForm ?
           this.form()
-          :
-          null
+          :  
+          <Fragment>
+            <Grid.Row centered>
+              <Header>Publications</Header>
+            </Grid.Row>
+            <Grid.Row centered>
+            <Grid.Column width={10}>
+              <List divided relaxed>
+                {
+                this.showPubs()
+                }
+              </List>
+            </Grid.Column>
+          </Grid.Row>
+          </Fragment>
         }
-        <Grid.Row centered>
-          <Grid.Column width={10}>
-            <List divided relaxed>
-              {this.showPubs()}
-            </List>
-          </Grid.Column>
-        </Grid.Row>
       </Grid>
     )
   }

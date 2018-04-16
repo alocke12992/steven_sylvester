@@ -4,6 +4,7 @@ import {Route} from 'react-router-dom';
 import Publications from './Publications';
 import PublicationView from './PublicationView';
 import {getPublications} from '../actions/publications';
+import ProtectedRoute from './ProtectedRoute'
 import {Loader, Segment, Dimmer} from 'semantic-ui-react';
 
 class FetchPublications extends React.Component {

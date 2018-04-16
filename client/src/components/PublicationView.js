@@ -1,23 +1,30 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react'
-import {deletePublication} from '../actions/publications';
 import PublicationForm from './PublicationForm';
-import {Document, Page} from 'react-pdf'
+import {Button, Container, Grid, Header, Icon, List, Divider} from 'semantic-ui-react'
+import styled from 'styled-components';
+import {connect} from 'react-redux';
+import {deletePublication} from '../actions/publications';
+
 
 class PublicationView extends React.Component {
-  state = {showForm: false, pageNumber: 1}
+  state = {pageNumber: 1, showAbstract: false, showLinks: false, showForm: false}
 
   toggleForm = () => {
-    this.setState(state => {
-      return {showForm: !state.showForm}
+    this.setState( state => {
+      return { showForm: !state.showForm}
     })
   }
 
-  deletePublication = () => {
-    const {publication: {id}, dispatch, history} = this.props
-    dispatch(deletePublication(id))
-    history.push('/publications')
+  toggleAbstract = () => {
+    this.setState(state => {
+      return {showAbstract: !state.showAbstract, showLinks: false}
+    })
+  }
+
+  toggleLinks = () => {
+    this.setState(state => {
+      return {showLinks: !state.showLinks, showAbstract: false}
+    })
   }
 
   form = ({publication}) => {
@@ -30,51 +37,100 @@ class PublicationView extends React.Component {
       </Grid.Column>
     )
   }
+  
+  deletePub = (id) => {
+    debugger
+    const {dispatch, history} = this.props
+    dispatch(deletePublication(id))
+  }
+
 
   render() {
-    const {publication = {}} = this.props
-    const {showForm, pageNumber} = this.state
+    const {publication, user} = this.props
+    const { pageNumber, editing, showAbstract, showLinks, showForm} = this.state
     return (
-      <Grid.Row columns={3}>
-        {
-          showForm ? this.form({publication})
-            :
+      <List.Item key={publication.id}>
+        {showForm ? this.form({publication})
+        :
+
             <div>
-              <Grid.Column width={2}>
-                <Button icon onClick={this.toggleForm}>
-                  <Icon name='edit' />
-                </Button>
-                <Button icon onClick={this.deletePublication}>
-                  <Icon name='delete' />
-                </Button>
-              </Grid.Column>
-              <Grid.Column width={6}>
-                <Container>
-                  <Header as='a' href={publication.file}>{publication.title}</Header>
-                  <Header as='h4'>{publication.authors}</Header>
-                  <a href={publication.links}>{publication.journal}</a>
-                  <p>{publication.abstract}</p>
-                </Container>
-              </Grid.Column>
-              <Grid.Column width={8}>
-                <Document
-                  file={publication.file}
-                >
-                  <Page pageNumber={pageNumber} />
-                </Document>
-              </Grid.Column>
+              <List.Description>{publication.authors}</List.Description>
+              <List.Header as='a' target='_blank' href={publication.file}>{publication.title}</List.Header>
+              <List.Content floated='right'>
+                <PubType>
+                  {publication.pub_type}
+                </PubType>
+              </List.Content>
+              <List.Description><a target='_blank' href={publication.links}>{publication.journal}</a></List.Description>
+              <List horizontal divided>
+                <List.Item content={<Toggle onClick={this.toggleAbstract}>Abstract</Toggle>} />
+                <List.Item content={<Toggle onClick={this.toggleLinks}>Links</Toggle>} />
+              </List>
+              {
+                showAbstract ?
+                  <div>
+                    <List.Description >{publication.abstract}</List.Description>
+                    <Toggle onClick={this.toggleAbstract}>Close</Toggle>
+                  </div>
+                  :
+                  null
+              }
+              {
+                showLinks ?
+                  <div>
+                    <Divider hidden />
+                    <List.Description><a target='_blank' href={publication.links}>Source</a></List.Description>
+                    <List.Description><a target='_blank' href={publication.file}>Download Paper</a></List.Description>
+                    <Close onClick={this.toggleLinks}>Close</Close>
+                  </div>
+                  :
+                  null
+              }
             </div>
         }
-      </Grid.Row>
+        {user.role === 'admin' && 
+         <List.Content floated='right'>
+          {showForm ? 
+            null 
+            :
+            <div>
+              <Button onClick={this.toggleForm}>Edit</Button>
+              <Button onClick={() => this.deletePub(publication.id)}>Delete</Button>
+            </div>
+          }
+          </List.Content>
+        }
+      </List.Item>
     )
   }
 }
+const Toggle = styled(Button) `
+  background: none !important;
+  color: rgb(65, 131, 196) !important;
+  font-weight: normal !important;
+  padding: 0 !important;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+`
+const Close = styled(Toggle) `
+  padding: 10px !important;
+`
 
-const mapStateToProps = (state, props) => {
-  const publication = state.publications.find(
-    p => p.id === parseInt(props.match.params.id),
-  );
-  return {publication};
+const PubType = styled.span`
+    background-color: #008bd2;
+    color: #fff;
+    display: inline-block;
+    padding: 3px 4px;
+    margin-left: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1;
+    border-radius: 2px;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.12);
+`
+
+const mapStateToProps = (state) => {
+  return {user: state.user}
 }
 
 export default connect(mapStateToProps)(PublicationView)
