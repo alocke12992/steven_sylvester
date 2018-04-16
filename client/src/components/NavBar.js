@@ -16,6 +16,9 @@ class NavBar extends Component {
         <Link to='/current_research'>
           <Menu.Item name='Current Research' />
         </Link>
+        <Link to='/data'>
+          <Menu.Item name='Replication Data' />
+        </Link>
         <Link to='/contact'>
           <Menu.Item name='Contact' />
         </Link>

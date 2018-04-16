@@ -57,4 +57,4 @@ class SearchPubType extends React.Component {
     )
   }
 }
-export default SearchPubType;
+export default SearchPubType;r

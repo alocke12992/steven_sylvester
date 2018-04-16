@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :cvs, only: [:index, :new, :create, :update]
     resources :settings, only: [:index]
     resources :publications
+    resources :data
     get '/cv', to: 'cvs#download_pdf'
     put '/settings/:id/update_cv', to: 'settings#update_cv'
     put '/settings/:id/update_avatar', to: 'settings#update_avatar'

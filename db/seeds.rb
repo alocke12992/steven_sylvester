@@ -43,6 +43,14 @@ types = ['Book Chapter', 'Journal Article', 'Blog Post']
   )
   end
 
+  5.times do 
+    Datum.create(
+      title: Faker::Book.title,
+      description: Faker::Hipster.paragraph,
+      file: Faker::File.file_name('path/to'),
+    )
+    end
+
 Setting.create()
 
 puts 'Setting created with defaults'
