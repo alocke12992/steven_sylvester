@@ -7,15 +7,16 @@ import AuthRoute from './AuthRoute';
 import Cv from './Cv';
 import Publications from './Publications';
 import About from './About';
-import FetchData from './FetchData'
+import FetchData from './FetchData';
 import FetchResearch from './FetchResearch';
 import FetchPublications from './FetchPublications';
 import {connect} from 'react-redux';
 import {fetchSettings} from '../actions/settings';
 import {Route, Switch, } from 'react-router-dom';
 import Contact from './Contact';
-import EditPassword from './EditPassword'
-import ProtectedRoute from './ProtectedRoute'
+import EditPassword from './EditPassword';
+import ProtectedRoute from './ProtectedRoute';
+import Profile from './Profile';
 
 class FetchSettings extends React.Component {
   state = {loaded: false};
@@ -42,6 +43,7 @@ class FetchSettings extends React.Component {
           <Route path='/publications' component={FetchPublications} />
           <AuthRoute exact path='/admin' component={Login} />
           <ProtectedRoute exact path='/password' component={EditPassword} />
+          <ProtectedRoute exact path='/profile' component={Profile} />
           <Route component={NoMatch} />
         </Switch>
       );

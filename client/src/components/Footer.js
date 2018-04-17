@@ -12,6 +12,9 @@ class Footer extends React.Component {
     if ( user.id ) {
       return (
         <Menu.Menu position='right'>
+          <Link to='/profile'>
+            <Menu.Item name='Profile' />
+          </Link>
           <Link to='/password'>
             <Menu.Item name='Edit Password' />
           </Link>

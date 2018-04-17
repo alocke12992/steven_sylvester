@@ -1,14 +1,12 @@
 import axios from 'axios';
 
-export const updateUser = (user, id) => {
+export const updateUser = (user) => {
   return (dispatch) => {
-    let {name, email, password} = user;
-    let url = `/api/users/${id}?name=${name}&email=${email}&password=${password}`
-    axios.put(url)
-      .then(res => {
+    axios.put(`/api/users/${user.id}`, user)
+    .then(res => {
         dispatch({
           type: 'USER',
-          user: res.data,
+          user: res.data.data,
           headers: res.headers
         })
       });
