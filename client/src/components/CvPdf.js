@@ -1,5 +1,6 @@
 import React from 'react';
 import CvUploader from './CvUploader';
+import Title from './StyledHeader';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {Document, Page} from 'react-pdf';
@@ -83,9 +84,15 @@ class CvPdf extends React.Component {
               }
             </div>
           }
-            <Header as='h2'>Curriculum Vitae</Header>
+          <Title textAlign='center'>Curriculum Vitae</Title>
         </Grid.Row>
+        <Download centered>
+          <a target='_blank' href={cv}>Download</a>
+        </Download>
         <PageRow columns={2}>
+          <Grid.Column floated='left' width={4}>
+            {this.pageChanger()}
+          </Grid.Column>
           <Grid.Column floated='right' width={4}>
             <p>Page {page} of {numPages}</p>
           </Grid.Column>
@@ -98,21 +105,20 @@ class CvPdf extends React.Component {
             <Page pageNumber={page} />
           </Document>
         </CvRow>
-        <Grid.Row centered>
-          {this.pageChanger()}
-        </Grid.Row>
-        <Grid.Row centered>
-          <a target='_blank' href={cv}>Download</a>
-        </Grid.Row>
       </Grid>
     );
   }
 }
 const CvRow = styled(Grid.Row)`
   padding-top: 0 !important; 
+  margin-top: 0 !important;
 ` 
 const PageRow = styled(Grid.Row)`
   padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+`
+const Download = styled(Grid.Row)`
+  padding: 0 !important;
 `
 
 const mapStateToProps = (state) => {

@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Grid, Divider, Header, List, Button, Icon} from 'semantic-ui-react';
 import {getData, deleteDatum} from '../actions/data';
+import Title from './StyledHeader';
 import styled from 'styled-components';
 import DataForm from './DataForm';
 import Datum from './Datum';
@@ -69,10 +70,10 @@ class Data extends React.Component {
           :
           <Fragment>
             <Grid.Row centered>
-              <Header>Replication Data</Header>
+              <Title textAlign='center'>Replication Data</Title>
             </Grid.Row>
             <Grid.Row centered>
-              <Grid.Column width={10}>
+              <Grid.Column width={8}>
                 <List divided relaxed>
                   {
                     this.showData()

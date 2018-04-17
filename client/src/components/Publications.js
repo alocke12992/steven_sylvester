@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Grid, Divider, Header, List, Button, Icon} from 'semantic-ui-react';
 import {getPublications, deletePublication} from '../actions/publications';
 import styled from 'styled-components';
+import Title from './StyledHeader';
 import PublicationForm from './PublicationForm';
 import PublicationView from './PublicationView';
 
@@ -70,7 +71,7 @@ class Publications extends React.Component {
           :  
           <Fragment>
             <Grid.Row centered>
-              <Header>Publications</Header>
+              <Title textAlign='center'>Publications</Title>
             </Grid.Row>
             <Grid.Row centered>
             <Grid.Column width={10}>

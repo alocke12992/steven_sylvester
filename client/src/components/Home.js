@@ -5,9 +5,9 @@ import {Divider, Grid, Image, } from 'semantic-ui-react';
 
 
 const Home = () => (
-  <Grid centered>
+  <Grid stackable centered>
     <Divider hidden />
-    <Grid.Row>
+    <Grid.Row centered columns={2}>
       <Grid.Column width={4}>
         <ProfilePicture />
       </Grid.Column>

@@ -62,6 +62,7 @@ class PublicationView extends React.Component {
                 </PubType>
               </List.Content>
               <List.Description><a target='_blank' href={publication.links}>{publication.journal}</a></List.Description>
+              <List.Description>Date published: {publication.date}</List.Description>
               <List horizontal divided>
                 <List.Item content={<Toggle onClick={this.toggleAbstract}>Abstract</Toggle>} />
                 <List.Item content={<Toggle onClick={this.toggleLinks}>Links</Toggle>} />

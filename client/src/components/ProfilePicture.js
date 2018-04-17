@@ -27,7 +27,7 @@ class ProfilePicture extends React.Component {
     const {showForm} = this.state
     const {avatar, user} = this.props
     return (
-      <Container>
+      <Container fluid>
         {
           showForm ? this.form({avatar})
             :

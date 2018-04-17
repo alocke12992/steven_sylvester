@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import BioForm from './BioForm'
+import Title from './StyledHeader';
 import {getBios} from '../actions/bios';
-import {Button, Container, Grid, Icon} from 'semantic-ui-react';
+import {Button, Container, Grid, Icon,} from 'semantic-ui-react';
 
 class Bio extends React.Component {
   state = {showForm: false};
@@ -50,6 +51,7 @@ class Bio extends React.Component {
               }
               <Grid.Column width={8}>
                 <Container fluid>
+                  <Title>About Steven</Title>
                   <div
                     dangerouslySetInnerHTML={this.createMarkup(body)}
                   />

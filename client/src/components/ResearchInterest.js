@@ -15,9 +15,9 @@ class ResearchInterest extends React.Component {
     return (
       researchInterests.map((research) => {
         return (
-          <Grid.Row columns={2} key={research.id}>
+          <Grid.Row centered columns={2} key={research.id}>
             <Grid.Column width={12}>
-              <Container text>
+              <Container fluid>
                 <Header size='medium'>{research.topic}</Header>
                 <Header size='small'>{research.title}</Header>
                 <div

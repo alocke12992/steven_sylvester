@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import InterestsForm from './InterestsForm'
 import {getInterests} from '../actions/interests';
-import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react';
+import {Button, Container, Grid, Header, Icon, Segment} from 'semantic-ui-react';
 
 class Interests extends React.Component {
   state = {showForm: false};
@@ -36,25 +36,24 @@ class Interests extends React.Component {
     const {body, user} = this.props
     const {showForm} = this.state
     return (
-      <Grid.Row columns={3}>
+      <Grid.Row centered columns={2}>
         {
           showForm ? this.form({body})
             :
             <div>
               {user.role === 'admin' &&
-                <Grid.Column width={2}>
+                <Grid.Column>
                   <Button icon onClick={this.toggleForm}>
                     <Icon name='edit' />
                   </Button>
                 </Grid.Column>
               }
-              <Grid.Column width={8}>
-                <Header as='h2' textAlign='center'>Research Interests</Header>
-                <Container fluid>
+              <Grid.Column>
+                <Segment basic fluid>
                   <div
                     dangerouslySetInnerHTML={this.createMarkup(body)}
                   />
-                </Container>
+                </Segment>
               </Grid.Column>
             </div>
         }

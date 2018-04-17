@@ -39,7 +39,7 @@ export const handleLogout = history => {
         dispatch(setHeaders(headers));
         dispatch(logout());
         dispatch(setFlash('Logged out successfully!', 'green'));
-        history.push('/login');
+        history.push('/');
       })
       .catch(res => {
         const messages =
@@ -62,15 +62,12 @@ export const handleLogin = (email, password, history) => {
         history.push('/');
       })
       .catch(res => {
-        let errors = res.response.data.errors ? res.response.data.errors : { full_messages: ['Something went wrong'] }
-        if (Array.isArray(errors))
-          errors = { full_messages: errors }
         const messages =
-          errors.map(message =>
+          res.response.data.errors.map(message =>
             <div>{message}</div>);
-        const { headers } = res;
-        dispatch(setHeaders(headers));
+        const {headers} = res;
         dispatch(setFlash(messages, 'red'));
+        dispatch(setHeaders(headers));
       });
   };
 };
@@ -88,3 +85,19 @@ export const validateToken = (callBack = () => {}) => {
       .catch(() => callBack());
   };
 };
+
+export const recoverPassword = (password, passwordConfirmation, history) => {
+  return dispatch => {
+    axios.post('/api/passwords/set_new_password', {password, password_confirmation: passwordConfirmation})
+      .then(res => {
+        debugger
+        dispatch(setHeaders(res.headers));
+        dispatch(setFlash(res.data, 'green'));
+      })
+      .catch(err => {
+        const messages = err.response.data.errors;
+        dispatch(setFlash(messages, 'red'));
+        dispatch(setHeaders(err.headers));
+      })
+  }
+}

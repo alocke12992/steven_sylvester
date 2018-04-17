@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
-import {Menu, Image, Header, Container} from 'semantic-ui-react';
+import {Menu, Image, Header, Container, Icon, Grid} from 'semantic-ui-react';
 import {Link, withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 
 class NavBar extends Component {
   rightNavs = () => {
     return (
-      <Menu.Menu position='right'>
+      <Nav stackable pointing secondary>
+        <Link to='/'>
+          <Menu.Item name='Home' />
+        </Link>
         <Link to='/vitae'>
           <Menu.Item name='Curriculum Vitae' />
         </Link>
@@ -22,7 +25,7 @@ class NavBar extends Component {
         <Link to='/contact'>
           <Menu.Item name='Contact' />
         </Link>
-      </Menu.Menu>
+      </Nav>
 
     )
 
@@ -31,19 +34,27 @@ class NavBar extends Component {
 
   render() {
     return (
-      <div>
+      <Grid centered>
         <Image src={require('../images/slcHeaderNoName.jpg')} style={{width: '100% !important', height: 'auto !important'}} />
-        <NavWrapper>
-          <Name>Steven Sylvester</Name>
-          <Description>Utah Valley University<br />History & Political Science - Assistant Professor</Description>
-        </NavWrapper>
-        <Menu pointing secondary style={styles.base}>
-          <Link to='/'>
-            <Menu.Item name='home' />
-          </Link>
-          {this.rightNavs()}
-        </Menu>
-      </div>
+        <Grid.Row centered>
+          <Grid.Column width={1}>
+          </Grid.Column>
+          <NavWrapper>
+            <Name>Steven Sylvester</Name>
+            <Description>Utah Valley University<br />History & Political Science - Assistant Professor</Description>
+          </NavWrapper>
+          <Grid.Column verticalAlign='middle' width={1}>
+            <a target='_blank' href='https://twitter.com/ssylvester82?lang=en'>
+            <Icon name='twitter' />
+            </a>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row centered>
+          <Center textAlign='center' width={16}>
+              {this.rightNavs()}
+          </Center>
+        </Grid.Row>
+      </Grid>
     );
   }
 }
@@ -64,7 +75,8 @@ const Name = styled.h1`
 `
 
 const NavWrapper = styled.div`
-    margin: 0 auto;
+    margin-left: 20px;
+    margin-right: 20px;
     padding: 20px 0;
     text-align: center;
     width: 40%;
@@ -81,6 +93,26 @@ const Description = styled.div`
     padding-bottom: 10px;
     text-align: center;
     text-transform: uppercase;
+`
+
+const Center = styled(Grid.Column)`
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+`
+
+const Nav = styled(Menu)`
+  display: flex !important;
+  justify-content: space-around !important;
+  width: 80% !important;
+  color: #333;
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 19px;
+`
+const Twitter = styled(Grid.Column)`
+
 `
 
 export default withRouter(NavBar);

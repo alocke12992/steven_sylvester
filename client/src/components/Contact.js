@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Form, Grid, Divider, Header, Message, Dropdown} from 'semantic-ui-react';
 import {connect} from 'react-redux';
-import axios from 'axios'
+import axios from 'axios';
+import Title from './StyledHeader';
 import {setHeaders} from '../actions/headers'
 import {setFlash} from '../actions/flash';
 
@@ -20,11 +21,11 @@ class Contact extends Component {
     e.preventDefault();
     const email = {...this.state};
     const {dispatch, closeForm} = this.props;
-    this.flashMessage()
-    axios.post('/api/emails', email).then((res) => {
+    axios.post('/api/emails', email)
+    .then((res) => {
       dispatch(setFlash('Your message has been Sent!', 'blue'))
       dispatch(setHeaders(res.headers))
-    }).then
+    })
     this.setState({first: '', last: '', email: '', subject: '', content: ''})
   };
 
@@ -48,7 +49,7 @@ class Contact extends Component {
             </Message>
             </Grid.Column>
             :
-            <Header as='h2'>Let's Connect!</Header>
+            <Title textAlign='center'>Contact</Title>
           }
         </Grid.Row>
         <Grid.Column width={8}>

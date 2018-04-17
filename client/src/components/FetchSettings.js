@@ -14,6 +14,8 @@ import {connect} from 'react-redux';
 import {fetchSettings} from '../actions/settings';
 import {Route, Switch, } from 'react-router-dom';
 import Contact from './Contact';
+import EditPassword from './EditPassword'
+import ProtectedRoute from './ProtectedRoute'
 
 class FetchSettings extends React.Component {
   state = {loaded: false};
@@ -38,7 +40,8 @@ class FetchSettings extends React.Component {
           <Route exact path='/data' component={FetchData} />
           <Route path='/current_research' component={FetchResearch} />
           <Route path='/publications' component={FetchPublications} />
-          <AuthRoute exact path='/login' component={Login} />
+          <AuthRoute exact path='/admin' component={Login} />
+          <ProtectedRoute exact path='/password' component={EditPassword} />
           <Route component={NoMatch} />
         </Switch>
       );
