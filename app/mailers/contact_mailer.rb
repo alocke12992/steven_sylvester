@@ -1,9 +1,9 @@
 class ContactMailer < ApplicationMailer
 
-  def contact_email(email)
+  def contact_email(email, admin)
     @email = email
-    admin = 'testforrailsemail@gmail.com'
-    mail(to: admin, subject: 'You have a new message')
+    @admin = admin.email
+    mail(to: @admin, subject: 'You have a new message')
   end
 
   def welcome_email(email)

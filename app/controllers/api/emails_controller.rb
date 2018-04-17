@@ -5,10 +5,11 @@ class Api::EmailsController < ApplicationController
     @email.first_name = params[:first]
     @email.last_name = params[:last]
     @email.email_address = params[:email]
+    @admin = User.first()
     respond_to do |format|
       if @email.save
         # Tell the emailMailer to send a welcome email after save
-        ContactMailer.contact_email(@email).deliver_now
+        ContactMailer.contact_email(@email, @admin).deliver_now
         ContactMailer.welcome_email(@email).deliver_now
         format.html { render(:text => "not implemented") }
         format.json { render json: @email, status: :created, location: @email }
