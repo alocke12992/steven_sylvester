@@ -2,6 +2,7 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import {connect} from 'react-redux';
 import {updateBios} from '../actions/bios';
+import toolbar from './Toolbar'
 import {
   Divider,
   Form,
@@ -45,6 +46,7 @@ class BioForm extends React.Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
             <ReactQuill
+              modules={{toolbar}}
               value={this.state.body}
               onChange={(value) => this.handleQuillChange(value, 'body')}
             />

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {setHeaders} from '../actions/headers';
+import {setHeaders} from './headers';
 export const BIOS = 'BIOS'
 export const UPDATE_BIOS = 'UPDATE_BIOS'
 

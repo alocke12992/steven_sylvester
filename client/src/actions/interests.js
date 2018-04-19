@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {setHeaders} from '../actions/headers';
+import {setHeaders} from './headers';
 export const INTERESTS = 'INTERESTS'
 export const UPDATE_INTERESTS = 'UPDATE_INTERESTS'
 
