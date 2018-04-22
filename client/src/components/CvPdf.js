@@ -3,7 +3,6 @@ import CvUploader from './CvUploader';
 import Title from './StyledHeader';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {Document, Page} from 'react-pdf';
 import {Button, Icon, Container, Grid, Header} from 'semantic-ui-react';
 
 class CvPdf extends React.Component {
@@ -26,22 +25,24 @@ class CvPdf extends React.Component {
         <Grid.Row centered>
           {user.role === 'admin' &&
             <div>
-              <Button icon onClick={this.toggleForm}>
-                {showForm ?
-                  <Icon name='delete' />
-                  :
-                  <Icon name='edit' />
-                }
+              {showForm ? 
+              <Button icon='cancel' onClick={this.toggleForm}>
               </Button>
-              {showForm ?
-                <CvUploader />
                 :
-                null
+                <Button icon='edit' onClick={this.toggleForm}>
+                </Button>
               }
             </div>
           }
           <Title textAlign='center'>Curriculum Vitae</Title>
         </Grid.Row>
+        {showForm ?
+          <Grid.Row centered>
+            <CvUploader closeForm={this.toggleForm} />
+          </Grid.Row>
+          :
+          null
+        }
         <CvRow centered>
           <Viewer src={cv} />
         </CvRow>

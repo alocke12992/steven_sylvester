@@ -22,8 +22,7 @@ class Api::DataController < ApplicationController
     file = params[:file]
     begin
       if !file.blank?
-        ext = File.extname(file.tempfile)
-        obj = s3.bucket(s3_bucket).object("data/#{datum.id}#{ext}")
+        obj = s3.bucket(s3_bucket).object("data/#{file.original_filename}")
         obj.upload_file(file.tempfile, acl: 'public-read' )
         datum.file = obj.public_url
       end
@@ -46,7 +45,7 @@ def update
     begin
       if !file.blank? 
         ext = File.extname(file.tempfile)
-        obj = s3.bucket(s3_bucket).object("data/#{@datum.id}#{ext}")
+        obj = s3.bucket(s3_bucket).object("data/#{file.original_filename}")
         obj.upload_file(file.tempfile, acl: 'public-read')
         @datum.file = obj.public_url
       end 

@@ -27,11 +27,10 @@ class CurrentResearch extends React.Component {
             </Grid.Column>
             {user.role === 'admin' &&
               <Grid.Column width={2}>
-                <Button icon>
-                  <Link to={`/current_research/${research.id}`} >
-                    <Icon name='settings' />
-                  </Link>
-                </Button>
+                <Link to={`/current_research/${research.id}`} >
+                   <Button icon='settings'>
+                  </Button>
+                </Link>
               </Grid.Column>
             }
           </Grid.Row>

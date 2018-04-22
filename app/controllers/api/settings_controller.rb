@@ -11,8 +11,7 @@ class Api::SettingsController < ApplicationController
     s3_bucket = ENV['BUCKET']
     file = params[:file]
     begin
-      ext = File.extname(file.tempfile)
-      obj = s3.bucket(s3_bucket).object("cvs/#{@setting.id}#{ext}")
+      obj = s3.bucket(s3_bucket).object("cvs/#{file.original_filename}")
       obj.upload_file(file.tempfile, acl: 'public-read')
       @setting.pdf_url = obj.public_url
       if @setting.save

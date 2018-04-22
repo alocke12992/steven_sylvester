@@ -33,8 +33,10 @@ class ResearchContainer extends React.Component {
             <Title textAlign='center'>Current Research</Title>
           {user.role === 'admin' &&
             <Grid.Row>
-              <Button onClick={this.toggleForm}>
-                  {showForm ? <Icon name='cancel' /> : <Icon name='plus' />}
+              <Button 
+                icon={showForm ? 'cancel' : 'plus'} 
+                onClick={this.toggleForm}
+              >
               </Button>
               {showForm ?
                 <CurrentResearchForm closeForm={this.toggleForm} />
