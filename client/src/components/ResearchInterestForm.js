@@ -47,12 +47,6 @@ class ResearchInterestForm extends React.Component {
     const {title, body} = this.state;
     return (
       <Container>
-        <Header
-          as="h1"
-          color="violet"
-          textAlign="center">
-          Current Research
-        </Header>
         <Divider hidden />
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>

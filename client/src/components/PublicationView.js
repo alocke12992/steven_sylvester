@@ -27,6 +27,10 @@ class PublicationView extends React.Component {
     })
   }
 
+  createMarkup = (html) => {
+    return {__html: html};
+  };
+
   form = ({publication}) => {
     return (
       <Grid.Column width={6}>
@@ -54,7 +58,11 @@ class PublicationView extends React.Component {
         :
 
             <div>
-              <List.Description>{publication.authors}</List.Description>
+              <List.Description>
+              <div
+                dangerouslySetInnerHTML={this.createMarkup(publication.authors)}
+              />
+              </List.Description>
               <List.Header as='a' target='_blank' href={publication.file}>{publication.title}</List.Header>
               <List.Content floated='right'>
                 <PubType>

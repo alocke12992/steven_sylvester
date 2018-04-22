@@ -1,6 +1,9 @@
 import React, {Fragment} from 'react';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
+import ReactQuill from 'react-quill';
+import toolbar from '../helpers/Toolbar'
+import {pubOptions} from '../helpers/options'
 import {addPublication, updatePublication} from '../actions/publications';
 import {
   Container,
@@ -43,8 +46,12 @@ class PublicationForm extends React.Component {
     this.setState({[name]: value});
   };
 
+  handleQuillChange = (value, name) => {
+    this.setState({[name]: value});
+  };
+
   handleSelect = (e) => {
-    this.setState({pub_type: e.target.value})
+    this.setState({pub_type: e.target.innerText})
   }
 
   handleSubmit = (e) => {
@@ -96,22 +103,24 @@ class PublicationForm extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Field>
+          <Header as='h4'>Contributing Authors</Header>
           <Form.Field>
-            <label>Contributing Authors</label>
-            <input
-              placeholder='Authors'
-              name='authors'
-              value={authors}
-              onChange={this.handleChange}
+            <ReactQuill
+              modules={{toolbar}}
+              value={this.state.authors}
+              onChange={(value) => this.handleQuillChange(value, 'authors')}
             />
+            <Divider hidden />
           </Form.Field>
           <Segment>
             <Header as='h3'>Publication Type: {pub_type}</Header>
-            <Form.Field label='Publication Type' fluid='true' value={pub_type} onChange={this.handleSelect} control='select'>
-            <option value='Book Chapter'>Book Chapter</option>
-            <option value='Journal Article'>Journal Article</option>
-            <option value='Blog Post'>Blog Post</option>
-            </Form.Field>
+            <Form.Select
+             label='Publication Type' 
+             name='type'
+             placeholder="Choose one..."
+             options={pubOptions}
+             onChange={this.handleSelect}
+            />
             <Form.Field>
               <label>Name of Book/Journal/Blog</label>
               <input

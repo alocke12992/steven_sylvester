@@ -2,7 +2,7 @@ import React from 'react';
 import ReactQuill from 'react-quill';
 import {connect} from 'react-redux';
 import {updateBios} from '../actions/bios';
-import toolbar from './Toolbar'
+import toolbar from '../helpers/Toolbar'
 import {
   Divider,
   Form,

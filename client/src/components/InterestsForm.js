@@ -35,13 +35,7 @@ class InterestsForm extends React.Component {
 
   interests = () => {
     return (
-      <Segment>
-        <Header
-          as="h1"
-          color="teal"
-          textAlign="center">
-          Update Research Interests
-        </Header>
+      <Segment basic>
         <Divider hidden />
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>

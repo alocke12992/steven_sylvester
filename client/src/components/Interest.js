@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 import InterestsForm from './InterestsForm'
 import {getInterests} from '../actions/interests';
@@ -23,12 +23,16 @@ class Interests extends React.Component {
 
   form = ({body}) => {
     return (
-      <Grid.Column width={6}>
-        <InterestsForm {...body} closeForm={this.toggleForm} />
-        <Button onClick={this.toggleForm}>
-          Cancel
-        </Button>
-      </Grid.Column>
+      <Fragment>
+        <Grid.Column>
+          <Button icon onClick={this.toggleForm}>
+            <Icon name='cancel' />
+          </Button>
+        </Grid.Column>
+        <Grid.Column width={6}>
+          <InterestsForm {...body} closeForm={this.toggleForm} />
+        </Grid.Column>
+      </Fragment>
     )
   }
 
