@@ -5,16 +5,17 @@ import axios from 'axios';
 import Title from './StyledHeader';
 import {setHeaders} from '../actions/headers'
 import {setFlash} from '../actions/flash';
+import {typeOptions, } from '../helpers/options';
 
 class Contact extends Component {
-  state = {first: '', last: '', email: '', subject: '', content: '', showMessage: false}
+  state = {first: '', last: '', email: '', subject: '', content: ''}
 
   handleChange = (e) => {
     const {name, value} = e.target
     this.setState({[name]: value});
   };
   handleSelect = (e) => {
-    this.setState({subject: e.target.value})
+    this.setState({subject: e.target.innerText})
   }
 
   handleSubmit = (e) => {
@@ -29,28 +30,13 @@ class Contact extends Component {
     this.setState({first: '', last: '', email: '', subject: '', content: ''})
   };
 
-  flashMessage = () => {
-    this.setState(state => {showMessage: !state.showMessage})
-    // setTimeout(function () {
-    //   this.setState({showMessage: false});
-    // }.bind(this), 1000)
-  }
-
   render() {
-    const {first, last, email, subject, content, showMessage} = this.state
+    const {first, last, email, subject, content} = this.state
     return (
       <Grid centered>
         <Divider hidden />
         <Grid.Row>
-          {showMessage ?
-            <Grid.Column width={8}>
-              <Message color='blue'>
-                Your Message has been sent!
-            </Message>
-            </Grid.Column>
-            :
-            <Title textAlign='center'>Contact</Title>
-          }
+          <Title textAlign='center'>Contact</Title>
         </Grid.Row>
         <Grid.Column width={8}>
           <Form onSubmit={this.handleSubmit}>
@@ -83,11 +69,14 @@ class Contact extends Component {
               value={email}
               onChange={this.handleChange}
             />
-            <Form.Field label='Subject' fluid value={subject} onChange={this.handleSelect} control='select'>
-              <option value='General inquiery'>General inquiery</option>
-              <option value='Discuss a project'>Discuss a project</option>
-              <option value='Research Collaboration'>Research Collaboration</option>
-            </Form.Field>
+            <Form.Select
+              required
+              name='subject'
+              label='Subject'
+              placeholder='Select...'
+              options={typeOptions}
+              onChange={this.handleSelect}
+            />
             <Form.TextArea
               required
               label='Message'
