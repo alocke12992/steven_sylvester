@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import DataForm from './DataForm';
 import {Button, Container, Grid, Header, Icon, List, Divider} from 'semantic-ui-react'
 import styled from 'styled-components';
@@ -21,7 +21,7 @@ class Datum extends React.Component {
     })
   }
 
-  form = ({datum}) => {
+  form = (datum) => {
     return (
       <Grid.Column width={6}>
         <DataForm {...datum} closeForm={this.toggleForm} />
@@ -43,10 +43,10 @@ class Datum extends React.Component {
     const {showForm, showDescription} = this.state
     return (
       <List.Item key={datum.id}>
-        {showForm ? this.form({datum})
+        {showForm ? this.form(datum)
           :
 
-          <div>
+          <Fragment>
             <List.Header as='h4' target='_blank' href={datum.file}>{datum.title}</List.Header>
             <List horizontal divided>
               <List.Item content={<Toggle onClick={this.toggleDescription}>Description</Toggle>} />
@@ -54,19 +54,21 @@ class Datum extends React.Component {
             </List>
             {
               showDescription ?
-                <div>
+                <Fragment>
                   <List.Description >{datum.description}</List.Description>
                   <Toggle onClick={this.toggleDescription}>Close</Toggle>
-                </div>
+                </Fragment>
                 :
                 null
             }
-          </div>
+          </Fragment>
         }
         {user.role === 'admin' &&
           <List.Content floated='right'>
             {showForm ?
-              null
+              <div>
+                Hey
+              </div>
               :
               <div>
                 <Button onClick={this.toggleForm}>Edit</Button>

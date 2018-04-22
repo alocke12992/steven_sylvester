@@ -16,7 +16,7 @@ class DataForm extends React.Component {
     title: '',
     description: '',
     file: '',
-    id: '',
+    id: null,
   };
 
 
@@ -81,15 +81,12 @@ class DataForm extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Field>
-          <Form.TextArea>
-            <label>Description</label>
-            <input
+          <Form.TextArea
               placeholder='Description'
               name='description'
-              value={description}
+              value={this.state.description}
               onChange={this.handleChange}
             />
-          </Form.TextArea>
           <Form.Field>
             {
               files.length > 0 ?

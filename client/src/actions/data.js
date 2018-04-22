@@ -38,7 +38,7 @@ export const updateDatum = (d) => {
   return (dispatch) => {
     const data = new FormData()
     data.append('file', d.file)
-    axios.put(`/api/data?title=${d.title}&description=${d.description}`, data)
+    axios.put(`/api/data/${d.id}?title=${d.title}&description=${d.description}`, data)
       .then((res) => {
         dispatch({
           type: UPDATE_DATUM,

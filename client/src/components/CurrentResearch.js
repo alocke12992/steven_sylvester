@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Button, Divider, Grid, Header, Container } from 'semantic-ui-react'
+import {Button, Divider, Grid, Header, Container, Icon } from 'semantic-ui-react'
 import Interest from './Interest';
 import Title from './StyledHeader';
 import ResearchInterest from './ResearchInterest';
@@ -30,10 +30,11 @@ class CurrentResearch extends React.Component {
             </Container>
           </Grid.Column>
           <Grid.Column width={6}>
+            <Title textAlign='center'>Current Research</Title>
           {user.role === 'admin' &&
             <Grid.Row>
               <Button onClick={this.toggleForm}>
-                {showForm ? 'Close Form' : 'Add New'}
+                  {showForm ? <Icon name='cancel' /> : <Icon name='plus' />}
               </Button>
               {showForm ?
                 <ResearchInterestForm closeForm={this.toggleForm} />
@@ -42,7 +43,6 @@ class CurrentResearch extends React.Component {
               }
             </Grid.Row>
           }
-            <Title textAlign='center'>Current Research</Title>
           <ResearchInterest />
           </Grid.Column>
           </Grid.Row>

@@ -13,7 +13,6 @@ class ProfilePicUpload extends React.Component {
   }
 
   avatarSubmit = () => {
-    debugger
     const {avatar_url} = this.state
     const {dispatch, id, closeForm} = this.props
     dispatch(updateAvatar(avatar_url, id))
