@@ -13,10 +13,7 @@ class Footer extends React.Component {
       return (
         <Menu.Menu position='right'>
           <Link to='/profile'>
-            <Menu.Item name='Profile' />
-          </Link>
-          <Link to='/password'>
-            <Menu.Item name='Edit Password' />
+            <Menu.Item name='Edit Profile' />
           </Link>
           <Menu.Item
             name='Logout'

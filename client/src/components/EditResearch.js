@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button, Container, Grid, Header, Icon, Divider} from 'semantic-ui-react';
 import {deleteResearch} from '../actions/researchInterests';
-import ResearchInterestForm from './ResearchInterestForm';
+import CurrentResearchForm from './CurrentResearchForm';
 
 class EditResearch extends React.Component {
   state = {showForm: false}
@@ -27,7 +27,7 @@ class EditResearch extends React.Component {
   form = ({research}) => {
     return (
       <Grid.Column width={6}>
-        <ResearchInterestForm {...research} closeForm={this.toggleForm} />
+        <CurrentResearchForm {...research} closeForm={this.toggleForm} />
         <Button onClick={this.toggleForm}>
           Cancel
         </Button>

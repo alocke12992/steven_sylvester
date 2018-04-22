@@ -10,15 +10,17 @@ import {
 } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import Title from './StyledHeader';
-import ProfileEdit from './ProfileEdit';
+import EditProfile from './EditProfile';
+import EditPassword from './EditPassword';
 
 const Fragment = React.Fragment;
 
 class Profile extends React.Component {
   state = {
     editing: false,
-    name: '',
+    editingPass: false,
     email: '',  
+    password: '', 
   }
 
   componentDidMount(){
@@ -30,35 +32,67 @@ class Profile extends React.Component {
       return {editing: !state.editing}
     })
   }
+  togglePass = () => {
+    this.setState(state => {
+      return {editingPass: !state.editingPass}
+    })
+  }
+
+
 
   profileView = () => {
-    const {name, email} = this.state;
+    const {email} = this.state;
     return (
       <Fragment>
         <Grid.Column width={8}>
-          <Title as="h2">Welcome {name}</Title>
           <Header as="h3">Profile Email: {email}</Header>
+        </Grid.Column>
+      </Fragment>
+    )
+  }
+  passwordView = () => {
+    const {password} = this.state
+    return (
+      <Fragment>
+        <Grid.Column width={8}>
+          <Header as="h3">Password: {password}</Header>
         </Grid.Column>
       </Fragment>
     )
   }
 
   render() {
-    const {editing} = this.state;
+    const {editing, editingPass} = this.state;
     return (
-      <Container>
-        <Divider hidden />
-        <Grid>
+        <Grid stackable centered>
+          <Grid.Row centered> 
+            <Title as="h2">Welcome Steven</Title>
+          </Grid.Row>
           <Grid.Row>
-            {editing ? <ProfileEdit closeForm={this.toggleEdit} /> : this.profileView()}
+            {editing ? 
+              <EditProfile closeForm={this.toggleEdit} /> 
+            : 
+              this.profileView()
+            }
             <Grid.Column>
               <Button onClick={this.toggleEdit}>
                 {editing ? 'Cancel' : 'Edit'}
               </Button>
             </Grid.Column>
           </Grid.Row>
+          <Grid.Row centered>
+            {editingPass ?
+              <EditPassword closeForm={this.togglePass} />
+              :
+              this.passwordView()
+            }
+            <Grid.Column>
+              <Button onClick={this.togglePass}>
+                {editingPass ? 'Cancel' : 'Edit'}
+              </Button>
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
-      </Container>
     )
 
   }
@@ -66,10 +100,10 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const {name, email} = state.user
+  const {email, password} = state.user
   return {
-    name,
     email,
+    password,
   }
 }
 

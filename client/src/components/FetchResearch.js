@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Route} from 'react-router-dom';
-import CurrentResearch from './CurrentResearch';
+import ResearchContainer from './ResearchContainer';
 import EditResearch from './EditResearch';
 import {getResearch} from '../actions/researchInterests';
 import {Loader, Segment, Dimmer} from 'semantic-ui-react';
@@ -22,7 +22,7 @@ class FetchResearch extends React.Component {
     if (loaded) {
       return (
         <div>
-          <Route exact path='/current_research' component={CurrentResearch} />
+          <Route exact path='/current_research' component={ResearchContainer} />
           <Route
             exact
             path="/current_research/:id"

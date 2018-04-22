@@ -95,7 +95,7 @@ class DataForm extends React.Component {
                 <div>
                   {
                     this.props.id ?
-                      <p>CurrentFile:<br /><iframe src={current_file}></iframe></p>
+                      <p>CurrentFile:<br />{current_file}></p>
                       :
                       null
                   }

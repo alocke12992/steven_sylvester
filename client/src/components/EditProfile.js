@@ -10,9 +10,8 @@ import {
   Button, 
 } from 'semantic-ui-react';
 
-class ProfileEdit extends React.Component {
+class EditProfile extends React.Component {
   initialState = {
-    name: '',
     email: '',
     id: null,
   }
@@ -43,13 +42,6 @@ class ProfileEdit extends React.Component {
         <Form onSubmit={this.handleSubmit}>
           <Grid.Column width={8}>
             <Form.Input
-              label="Name"
-              name="name"
-              value={name}
-              required
-              onChange={this.handleChange}
-            />
-            <Form.Input
               label="Email"
               name="email"
               value={email}
@@ -73,12 +65,11 @@ class ProfileEdit extends React.Component {
   }
 }
 const mapStateToProps = (state) => {
-  const {name, email, id} = state.user
+  const {email, id} = state.user
   return {
-    name,
     email, 
     id,
   }
 }
 
-export default connect(mapStateToProps)(ProfileEdit);
+export default connect(mapStateToProps)(EditProfile);

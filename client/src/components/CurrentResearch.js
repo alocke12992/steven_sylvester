@@ -1,60 +1,51 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Button, Divider, Grid, Header, Container, Icon } from 'semantic-ui-react'
-import Interest from './Interest';
-import Title from './StyledHeader';
-import ResearchInterest from './ResearchInterest';
-import ResearchInterestForm from './ResearchInterestForm';
+import {Link} from 'react-router-dom';
+import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react'
 
 class CurrentResearch extends React.Component {
-  state = {showForm: false};
+  state = {topic: '', title: '', body: ''}
 
-  toggleForm = () => {
-    this.setState(state => {
-      return {showForm: !state.showForm}
-    })
-  }
+  createMarkup = (html) => {
+    return {__html: html};
+  };
 
   render() {
-    const {user} = this.props
-    const {showForm} = this.state
+    const {researchInterests, user} = this.props
     return (
-      <div>
-        <Grid stackable centered>
-          <Divider hidden />
-          <Grid.Row columns={2}>
-          <Grid.Column width={6}>
-            <Container fluid>
-              <Title textAlign='center'>Research Interests</Title>
-              <Interest />
-            </Container>
-          </Grid.Column>
-          <Grid.Column width={6}>
-            <Title textAlign='center'>Current Research</Title>
-          {user.role === 'admin' &&
-            <Grid.Row>
-              <Button onClick={this.toggleForm}>
-                  {showForm ? <Icon name='cancel' /> : <Icon name='plus' />}
-              </Button>
-              {showForm ?
-                <ResearchInterestForm closeForm={this.toggleForm} />
-                :
-                null
-              }
-            </Grid.Row>
-          }
-          <ResearchInterest />
-          </Grid.Column>
+      researchInterests.map((research) => {
+        return (
+          <Grid.Row centered columns={2} key={research.id}>
+            <Grid.Column width={12}>
+              <Container fluid>
+                <Header size='medium'>{research.topic}</Header>
+                <Header size='small'>{research.title}</Header>
+                <div
+                  dangerouslySetInnerHTML={this.createMarkup(research.body)}
+                />
+              </Container>
+            </Grid.Column>
+            {user.role === 'admin' &&
+              <Grid.Column width={2}>
+                <Button icon>
+                  <Link to={`/current_research/${research.id}`} >
+                    <Icon name='settings' />
+                  </Link>
+                </Button>
+              </Grid.Column>
+            }
           </Grid.Row>
-        </Grid>
-      </div>
+        )
+      })
     )
   }
 }
+
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    researchInterests: state.researchInterests,
+    user: state.user,
   }
 }
 
-export default connect(mapStateToProps)(CurrentResearch) 
+export default connect(mapStateToProps)(CurrentResearch)

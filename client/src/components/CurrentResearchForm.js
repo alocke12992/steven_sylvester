@@ -10,7 +10,7 @@ import {
   Header,
 } from 'semantic-ui-react';
 
-class ResearchInterestForm extends React.Component {
+class CurrentResearchForm extends React.Component {
   initialState = {
     topic: '',
     title: '',
@@ -98,4 +98,4 @@ class ResearchInterestForm extends React.Component {
   }
 }
 
-export default connect()(ResearchInterestForm);
+export default connect()(CurrentResearchForm);

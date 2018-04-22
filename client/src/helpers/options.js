@@ -1,7 +1,7 @@
 export const typeOptions = [
-  {key: 'inquiry', text: 'General inquiery', value: 'General inquiery'},
+  {key: 'inquiry', text: 'General inquiry', value: 'General inquiry'},
   {key: 'project', text: 'Discuss a project', value: 'Discuss a project'},
-  {key: 'collaboration', text: 'Research Collaboration', value: 'Research Collaboration'},
+  {key: 'collaboration', text: 'Research collaboration', value: 'Research collaboration'},
 ];
 
 export const pubOptions = [

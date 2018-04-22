@@ -66,9 +66,7 @@ class Datum extends React.Component {
         {user.role === 'admin' &&
           <List.Content floated='right'>
             {showForm ?
-              <div>
-                Hey
-              </div>
+              null
               :
               <div>
                 <Button onClick={this.toggleForm}>Edit</Button>

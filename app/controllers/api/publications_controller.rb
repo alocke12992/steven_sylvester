@@ -26,8 +26,7 @@ class Api::PublicationsController < ApplicationController
     file = params[:file]
     begin
       if !file.blank?
-        ext = File.extname(file.tempfile)
-        obj = s3.bucket(s3_bucket).object("publications/#{publication.id}#{ext}")
+        obj = s3.bucket(s3_bucket).object("publications/#{file.original_filename}")
         obj.upload_file(file.tempfile, acl: 'public-read' )
         publication.file = obj.public_url
       end
@@ -55,7 +54,7 @@ def update
     begin
       if !file.blank? 
         ext = File.extname(file.tempfile)
-        obj = s3.bucket(s3_bucket).object("publications/#{@publication.id}#{ext}")
+        obj = s3.bucket(s3_bucket).object("publications/#{file.original_filename}")
         obj.upload_file(file.tempfile, acl: 'public-read')
         @publication.file = obj.public_url
       end 

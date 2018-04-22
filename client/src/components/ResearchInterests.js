@@ -1,10 +1,10 @@
 import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
-import InterestsForm from './InterestsForm'
+import ResearchInterestsForm from './ResearchInterestsForm'
 import {getInterests} from '../actions/interests';
 import {Button, Container, Grid, Header, Icon, Segment} from 'semantic-ui-react';
 
-class Interests extends React.Component {
+class ResearchInterests extends React.Component {
   state = {showForm: false};
 
   componentDidMount() {
@@ -30,7 +30,7 @@ class Interests extends React.Component {
           </Button>
         </Grid.Column>
         <Grid.Column width={6}>
-          <InterestsForm {...body} closeForm={this.toggleForm} />
+          <ResearchInterestsForm {...body} closeForm={this.toggleForm} />
         </Grid.Column>
       </Fragment>
     )
@@ -70,4 +70,4 @@ const mapStateToProps = (state) => {
   const {body} = state.interests
   return {user: state.user, body}
 }
-export default connect(mapStateToProps)(Interests);
+export default connect(mapStateToProps)(ResearchInterests);
