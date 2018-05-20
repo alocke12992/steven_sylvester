@@ -17,6 +17,7 @@ import Contact from './Contact';
 import EditPassword from './EditPassword';
 import ProtectedRoute from './ProtectedRoute';
 import Profile from './Profile';
+import RecoverPassword from './RecoverPassword';
 
 class FetchSettings extends React.Component {
   state = {loaded: false};
@@ -43,6 +44,7 @@ class FetchSettings extends React.Component {
           <Route path='/publications' component={FetchPublications} />
           <AuthRoute exact path='/admin' component={Login} />
           <ProtectedRoute exact path='/password' component={EditPassword} />
+          <AuthRoute exact path='/recover_password' component={RecoverPassword} />
           <ProtectedRoute exact path='/profile' component={Profile} />
           <Route component={NoMatch} />
         </Switch>

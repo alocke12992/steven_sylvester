@@ -1,25 +1,26 @@
-import React, { Component } from 'react';
-import { Header, Grid, Segment, Form, Button, Divider} from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { handleLogin } from '../actions/auth';
+import React, {Component} from 'react';
+import {Header, Grid, Segment, Form, Button, Divider} from 'semantic-ui-react';
+import {connect} from 'react-redux';
+import {handleLogin} from '../actions/auth';
+import {Link} from 'react-router-dom';
 
 class Login extends Component {
-  state = { email: '', password: '' };
+  state = {email: '', password: ''};
 
   handleChange = event => {
-    const { id, value } = event.target;
-    this.setState({ [id]: value });
+    const {id, value} = event.target;
+    this.setState({[id]: value});
   }
 
   handleSubmit = event => {
     event.preventDefault();
-    const { dispatch, history } = this.props;
-    const { email, password } = this.state;
+    const {dispatch, history} = this.props;
+    const {email, password} = this.state;
     dispatch(handleLogin(email, password, history));
   }
 
   render() {
-    const { email, password } = this.state;
+    const {email, password} = this.state;
     return (
       <Grid centered>
         <Divider hidden />
@@ -52,6 +53,7 @@ class Login extends Component {
               </Form.Field>
               <Segment textAlign='center' basic>
                 <Button primary type='submit'>Submit</Button>
+                <Link to={'/recover_password'}>Forgot Password?</Link>
               </Segment>
             </Form>
           </Grid.Column>
