@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import NoMatch from './NoMatch';
 import Login from './Login';
-import Flash from './Flash';
 import Home from './Home';
 import AuthRoute from './AuthRoute';
 import Cv from './Cv';
-import Publications from './Publications';
 import About from './About';
 import FetchData from './FetchData';
 import FetchResearch from './FetchResearch';

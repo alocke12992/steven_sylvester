@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Menu, Image, Header, Container, Icon, Grid} from 'semantic-ui-react';
+import {Menu, Image, Icon, Grid} from 'semantic-ui-react';
 import {Link, withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -44,24 +44,18 @@ class NavBar extends Component {
             <Description>Utah Valley University<br />History & Political Science - Assistant Professor</Description>
           </NavWrapper>
           <Grid.Column verticalAlign='middle' width={1}>
-            <a target='_blank' href='https://twitter.com/ssylvester82?lang=en'>
-            <Icon name='twitter' />
+            <a target='_blank' href='https://twitter.com/ssylvester82?lang=en' rel="noopener noreferrer">
+              <Icon name='twitter' />
             </a>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row centered>
           <Center textAlign='center' width={16}>
-              {this.rightNavs()}
+            {this.rightNavs()}
           </Center>
         </Grid.Row>
       </Grid>
     );
-  }
-}
-
-const styles = {
-  base: {
-    padding: '5px',
   }
 }
 
@@ -110,9 +104,6 @@ const Nav = styled(Menu)`
     font-size: 11px;
     font-weight: 700;
     line-height: 19px;
-`
-const Twitter = styled(Grid.Column)`
-
 `
 
 export default withRouter(NavBar);

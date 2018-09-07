@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form, Grid, Divider, Header, Message, Dropdown} from 'semantic-ui-react';
+import {Form, Grid, Divider} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import Title from './StyledHeader';
@@ -21,17 +21,17 @@ class Contact extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const email = {...this.state};
-    const {dispatch, closeForm} = this.props;
+    const {dispatch} = this.props;
     axios.post('/api/emails', email)
-    .then((res) => {
-      dispatch(setFlash('Your message has been Sent!', 'blue'))
-      dispatch(setHeaders(res.headers))
-    })
+      .then((res) => {
+        dispatch(setFlash('Your message has been Sent!', 'blue'))
+        dispatch(setHeaders(res.headers))
+      })
     this.setState({first: '', last: '', email: '', subject: '', content: ''})
   };
 
   render() {
-    const {first, last, email, subject, content} = this.state
+    const {first, last, email, content} = this.state
     return (
       <Grid centered>
         <Divider hidden />

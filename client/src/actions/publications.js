@@ -20,10 +20,15 @@ export const getPublications = (cb) => {
 };
 
 export const addPublication = (p) => {
+  let title = encodeURIComponent(p.title)
+  let abstract = encodeURIComponent(p.abstract)
+  let authors = encodeURIComponent(p.authors)
+  let date = encodeURIComponent(p.date)
+  let journal = encodeURIComponent(p.journal)
   return (dispatch) => {
     const data = new FormData()
     data.append('file', p.file)
-    axios.post(`/api/publications?title=${p.title}&abstract=${p.abstract}&authors=${p.authors}&journal=${p.journal}&links=${p.links}&date=${p.date}&pub_type=${p.pub_type}`, data)
+    axios.post(`/api/publications?title=${title}&abstract=${abstract}&authors=${authors}&journal=${journal}&links=${p.links}&date=${date}&pub_type=${p.pub_type}`, data)
       .then((res) => {
         dispatch({type: ADD_PUBLICATION, publication: res.data})
         dispatch(setHeaders(res.headers));
@@ -35,10 +40,15 @@ export const addPublication = (p) => {
 }
 
 export const updatePublication = (p) => {
+  let title = encodeURIComponent(p.title)
+  let abstract = encodeURIComponent(p.abstract)
+  let authors = encodeURIComponent(p.authors)
+  let date = encodeURIComponent(p.date)
+  let journal = encodeURIComponent(p.journal)
   return (dispatch) => {
     const data = new FormData()
     data.append('file', p.file)
-    axios.put(`/api/publications/${p.id}?title=${p.title}&abstract=${p.abstract}&authors=${p.authors}&journal=${p.journal}&links=${p.links}&date=${p.date}&pub_type=${p.pub_type}`, data)
+    axios.put(`/api/publications/${p.id}?title=${title}&abstract=${abstract}&authors=${authors}&journal=${journal}&links=${p.links}&date=${date}&pub_type=${p.pub_type}`, data)
       .then((res) => {
         dispatch({
           type: UPDATE_PUBLICATION,

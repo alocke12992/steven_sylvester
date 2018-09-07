@@ -1,13 +1,10 @@
 import React from 'react';
-
 import {connect} from 'react-redux';
 import {updateUser} from '../actions/user';
 import {
-  Divider,
   Form,
   Grid,
-  Header,
-  Button, 
+  Button,
 } from 'semantic-ui-react';
 
 class EditProfile extends React.Component {
@@ -36,7 +33,7 @@ class EditProfile extends React.Component {
   };
 
   form = () => {
-    const {name, email} = this.state
+    const {email} = this.state
     return (
       <Grid.Column>
         <Form onSubmit={this.handleSubmit}>
@@ -67,7 +64,7 @@ class EditProfile extends React.Component {
 const mapStateToProps = (state) => {
   const {email, id} = state.user
   return {
-    email, 
+    email,
     id,
   }
 }

@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 import DataForm from './DataForm';
-import {Button, Container, Grid, Header, Icon, List, Divider} from 'semantic-ui-react'
+import {Button, Grid, List, } from 'semantic-ui-react'
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {deleteDatum} from '../actions/data';
@@ -33,7 +33,7 @@ class Datum extends React.Component {
   }
 
   delete = (id) => {
-    const {dispatch, history} = this.props
+    const {dispatch} = this.props
     dispatch(deleteDatum(id))
   }
 
@@ -79,7 +79,7 @@ class Datum extends React.Component {
     )
   }
 }
-const Toggle = styled(Button) `
+const Toggle = styled(Button)`
   background: none !important;
   color: rgb(65, 131, 196) !important;
   font-weight: normal !important;
@@ -87,9 +87,7 @@ const Toggle = styled(Button) `
   margin-top: 5px !important;
   margin-bottom: 5px !important;
 `
-const Close = styled(Toggle) `
-  padding: 10px !important;
-`
+
 const mapStateToProps = (state) => {
   return {user: state.user}
 }

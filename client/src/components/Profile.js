@@ -1,10 +1,6 @@
 import React from 'react';
 import {
-  Form,
   Grid,
-  Image,
-  Container,
-  Divider,
   Header,
   Button,
 } from 'semantic-ui-react';
@@ -19,11 +15,11 @@ class Profile extends React.Component {
   state = {
     editing: false,
     editingPass: false,
-    email: '',  
-    password: '', 
+    email: '',
+    password: '',
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.setState({...this.props})
   }
 
@@ -64,35 +60,35 @@ class Profile extends React.Component {
   render() {
     const {editing, editingPass} = this.state;
     return (
-        <Grid stackable centered>
-          <Grid.Row centered> 
-            <Title as="h2">Welcome Steven</Title>
-          </Grid.Row>
-          <Grid.Row>
-            {editing ? 
-              <EditProfile closeForm={this.toggleEdit} /> 
-            : 
-              this.profileView()
-            }
-            <Grid.Column>
-              <Button onClick={this.toggleEdit}>
-                {editing ? 'Cancel' : 'Edit'}
-              </Button>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row centered>
-            {editingPass ?
-              <EditPassword closeForm={this.togglePass} />
-              :
-              this.passwordView()
-            }
-            <Grid.Column>
-              <Button onClick={this.togglePass}>
-                {editingPass ? 'Cancel' : 'Edit'}
-              </Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+      <Grid stackable centered>
+        <Grid.Row centered>
+          <Title as="h2">Welcome Steven</Title>
+        </Grid.Row>
+        <Grid.Row>
+          {editing ?
+            <EditProfile closeForm={this.toggleEdit} />
+            :
+            this.profileView()
+          }
+          <Grid.Column>
+            <Button onClick={this.toggleEdit}>
+              {editing ? 'Cancel' : 'Edit'}
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row centered>
+          {editingPass ?
+            <EditPassword closeForm={this.togglePass} />
+            :
+            this.passwordView()
+          }
+          <Grid.Column>
+            <Button onClick={this.togglePass}>
+              {editingPass ? 'Cancel' : 'Edit'}
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     )
 
   }

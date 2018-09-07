@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Button, Container, Grid, Header, Icon, Divider} from 'semantic-ui-react';
+import {Button, Container, Grid, Header, Divider} from 'semantic-ui-react';
 import {deleteResearch} from '../actions/researchInterests';
 import CurrentResearchForm from './CurrentResearchForm';
 
@@ -40,7 +40,7 @@ class EditResearch extends React.Component {
     const {showForm} = this.state
     return (
       <Grid centered>
-      <Divider hidden/>
+        <Divider hidden />
         <Grid.Row centered>
           {
             showForm ? this.form({research})
@@ -59,17 +59,17 @@ class EditResearch extends React.Component {
           }
         </Grid.Row>
         <Grid.Row centered>
-            <Button  onClick={this.toggleForm}>
-              Edit
+          <Button onClick={this.toggleForm}>
+            Edit
             </Button>
-            <Button  onClick={this.deletePost}>
-              Delete
+          <Button onClick={this.deletePost}>
+            Delete
             </Button>
-          </Grid.Row> 
-          <Grid.Row>
-            <Link to='/current_research'>
-              <Button>Back</Button>
-            </Link>
+        </Grid.Row>
+        <Grid.Row>
+          <Link to='/current_research'>
+            <Button>Back</Button>
+          </Link>
         </Grid.Row>
       </Grid>
     )
@@ -78,7 +78,7 @@ class EditResearch extends React.Component {
 
 const mapStateToProps = (state, props) => {
   const research = state.researchInterests.find(
-    a => a.id === parseInt(props.match.params.id),
+    a => a.id === parseInt(props.match.params.id, 10),
   );
   return {research};
 }

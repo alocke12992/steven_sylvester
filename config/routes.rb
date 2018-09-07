@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     put '/settings/:id/update_cv', to: 'settings#update_cv'
     put '/settings/:id/update_avatar', to: 'settings#update_avatar'
     post '/emails', to: 'emails#create'
+    #Password Recovery
+    post 'passwords/send_password_reset', to: 'passwords#send_password_reset'
     post 'passwords/set_new_password', to: 'passwords#set_new_password'
   end
 

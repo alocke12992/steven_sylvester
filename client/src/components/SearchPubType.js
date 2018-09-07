@@ -1,13 +1,6 @@
 import React from 'react';
 import {
-  Card,
-  Container,
-  Divider,
-  Form,
   Grid,
-  Header,
-  Image,
-  Label,
 } from 'semantic-ui-react';
 
 class SearchPubType extends React.Component {
@@ -44,17 +37,17 @@ class SearchPubType extends React.Component {
 
 
   showResults = () => {
-    const {results, toggleResult} = this.state;
-      return results.map((result) => (
-        <Grid.Column key={result.id}>
-          
-        </Grid.Column>
-      ));
+    const {results} = this.state;
+    return results.map((result) => (
+      <Grid.Column key={result.id}>
+
+      </Grid.Column>
+    ));
   }
   render() {
     return (
-    <div></div>
+      <div></div>
     )
   }
 }
-export default SearchPubType;r
+export default SearchPubType;

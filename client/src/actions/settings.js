@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {setFlash} from './flash';
 import {setHeaders} from './headers';
 
 export const UPDATE_SETTINGS = 'UPDATE_SETTINGS';
@@ -26,7 +25,6 @@ export const fetchSettings = (cb = () => {}) => {
 };
 
 export const updateCv = (file, id) => {
-  debugger
   return (dispatch) => {
     const data = new FormData();
     data.append('file', file)

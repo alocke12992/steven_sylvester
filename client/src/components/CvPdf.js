@@ -3,7 +3,7 @@ import CvUploader from './CvUploader';
 import Title from './StyledHeader';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {Button, Icon, Container, Grid, Header} from 'semantic-ui-react';
+import {Button, Grid} from 'semantic-ui-react';
 
 class CvPdf extends React.Component {
   state = {
@@ -25,9 +25,9 @@ class CvPdf extends React.Component {
         <Grid.Row centered>
           {user.role === 'admin' &&
             <div>
-              {showForm ? 
-              <Button icon='cancel' onClick={this.toggleForm}>
-              </Button>
+              {showForm ?
+                <Button icon='cancel' onClick={this.toggleForm}>
+                </Button>
                 :
                 <Button icon='edit' onClick={this.toggleForm}>
                 </Button>
@@ -56,7 +56,7 @@ class CvPdf extends React.Component {
 const CvRow = styled(Grid.Row)`
   padding-top: 0 !important; 
   margin-top: 0 !important;
-` 
+`
 const Download = styled(Grid.Row)`
   padding: 0 !important;
 `

@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import {addDatum, updateDatum} from '../actions/data';
@@ -6,9 +6,7 @@ import {
   Container,
   Divider,
   Form,
-  Grid,
   Header,
-  Segment,
 } from 'semantic-ui-react';
 
 class DataForm extends React.Component {
@@ -54,9 +52,6 @@ class DataForm extends React.Component {
 
   render() {
     const {
-      title,
-      description,
-      file,
       files,
       current_file,
     } = this.state;
@@ -82,11 +77,11 @@ class DataForm extends React.Component {
             />
           </Form.Field>
           <Form.TextArea
-              placeholder='Description'
-              name='description'
-              value={this.state.description}
-              onChange={this.handleChange}
-            />
+            placeholder='Description'
+            name='description'
+            value={this.state.description}
+            onChange={this.handleChange}
+          />
           <Form.Field>
             {
               files.length > 0 ?

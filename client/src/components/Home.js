@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Bio from './Bio';
 import ProfilePicture from './ProfilePicture';
-import {Divider, Grid, Image, } from 'semantic-ui-react';
+import {Divider, Grid, } from 'semantic-ui-react';
 
 
 const Home = () => (

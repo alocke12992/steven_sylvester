@@ -1,6 +1,6 @@
 import React from 'react'
 import PublicationForm from './PublicationForm';
-import {Button, Container, Grid, Header, Icon, List, Divider} from 'semantic-ui-react'
+import {Button, Grid, List, Divider} from 'semantic-ui-react'
 import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {deletePublication} from '../actions/publications';
@@ -10,8 +10,8 @@ class PublicationView extends React.Component {
   state = {pageNumber: 1, showAbstract: false, showLinks: false, showForm: false}
 
   toggleForm = () => {
-    this.setState( state => {
-      return { showForm: !state.showForm}
+    this.setState(state => {
+      return {showForm: !state.showForm}
     })
   }
 
@@ -41,79 +41,78 @@ class PublicationView extends React.Component {
       </Grid.Column>
     )
   }
-  
+
   deletePub = (id) => {
-    debugger
-    const {dispatch, history} = this.props
+    const {dispatch} = this.props
     dispatch(deletePublication(id))
   }
 
 
   render() {
     const {publication, user} = this.props
-    const { pageNumber, editing, showAbstract, showLinks, showForm} = this.state
+    const {showAbstract, showLinks, showForm} = this.state
     return (
       <List.Item key={publication.id}>
         {showForm ? this.form({publication})
-        :
+          :
 
-            <div>
-              <List.Description>
+          <div>
+            <List.Description>
               <div
                 dangerouslySetInnerHTML={this.createMarkup(publication.authors)}
               />
-              </List.Description>
-              <List.Header as='a' target='_blank' href={publication.file}>{publication.title}</List.Header>
-              <List.Content floated='right'>
-                <PubType>
-                  {publication.pub_type}
-                </PubType>
-              </List.Content>
-              <List.Description><a target='_blank' href={publication.links}>{publication.journal}</a></List.Description>
-              <List.Description>Date published: {publication.date}</List.Description>
-              <List horizontal divided>
-                <List.Item content={<Toggle onClick={this.toggleAbstract}>Abstract</Toggle>} />
-                <List.Item content={<Toggle onClick={this.toggleLinks}>Links</Toggle>} />
-              </List>
-              {
-                showAbstract ?
-                  <div>
-                    <List.Description >{publication.abstract}</List.Description>
-                    <Toggle onClick={this.toggleAbstract}>Close</Toggle>
-                  </div>
-                  :
-                  null
-              }
-              {
-                showLinks ?
-                  <div>
-                    <Divider hidden />
-                    <List.Description><a target='_blank' href={publication.links}>Source</a></List.Description>
-                    <List.Description><a target='_blank' href={publication.file}>Download Paper</a></List.Description>
-                    <Close onClick={this.toggleLinks}>Close</Close>
-                  </div>
-                  :
-                  null
-              }
-            </div>
+            </List.Description>
+            <List.Header as='a' target='_blank' href={publication.file}>{publication.title}</List.Header>
+            <List.Content floated='right'>
+              <PubType>
+                {publication.pub_type}
+              </PubType>
+            </List.Content>
+            <List.Description><a target='_blank' href={publication.links}>{publication.journal}</a></List.Description>
+            <List.Description>Date published: {publication.date}</List.Description>
+            <List horizontal divided>
+              <List.Item content={<Toggle onClick={this.toggleAbstract}>Abstract</Toggle>} />
+              <List.Item content={<Toggle onClick={this.toggleLinks}>Links</Toggle>} />
+            </List>
+            {
+              showAbstract ?
+                <div>
+                  <List.Description >{publication.abstract}</List.Description>
+                  <Toggle onClick={this.toggleAbstract}>Close</Toggle>
+                </div>
+                :
+                null
+            }
+            {
+              showLinks ?
+                <div>
+                  <Divider hidden />
+                  <List.Description><a target='_blank' href={publication.links}>Source</a></List.Description>
+                  <List.Description><a target='_blank' href={publication.file}>Download Paper</a></List.Description>
+                  <Close onClick={this.toggleLinks}>Close</Close>
+                </div>
+                :
+                null
+            }
+          </div>
         }
-        {user.role === 'admin' && 
-         <List.Content floated='right'>
-          {showForm ? 
-            null 
-            :
-            <div>
-              <Button onClick={this.toggleForm}>Edit</Button>
-              <Button onClick={() => this.deletePub(publication.id)}>Delete</Button>
-            </div>
-          }
+        {user.role === 'admin' &&
+          <List.Content floated='right'>
+            {showForm ?
+              null
+              :
+              <div>
+                <Button onClick={this.toggleForm}>Edit</Button>
+                <Button onClick={() => this.deletePub(publication.id)}>Delete</Button>
+              </div>
+            }
           </List.Content>
         }
       </List.Item>
     )
   }
 }
-const Toggle = styled(Button) `
+const Toggle = styled(Button)`
   background: none !important;
   color: rgb(65, 131, 196) !important;
   font-weight: normal !important;
@@ -121,7 +120,7 @@ const Toggle = styled(Button) `
   margin-top: 5px !important;
   margin-bottom: 5px !important;
 `
-const Close = styled(Toggle) `
+const Close = styled(Toggle)`
   padding: 10px !important;
 `
 

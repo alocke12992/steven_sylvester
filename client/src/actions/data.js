@@ -20,10 +20,12 @@ export const getData = (cb) => {
 };
 
 export const addDatum = (d) => {
+  let title = encodeURIComponent(d.title)
+  let description = encodeURIComponent(d.description)
   return (dispatch) => {
     const data = new FormData()
     data.append('file', d.file)
-    axios.post(`/api/data?title=${d.title}&description=${d.description}`, data)
+    axios.post(`/api/data?title=${title}&description=${description}`, data)
       .then((res) => {
         dispatch({type: ADD_DATUM, datum: res.data})
         dispatch(setHeaders(res.headers));
@@ -35,10 +37,12 @@ export const addDatum = (d) => {
 }
 
 export const updateDatum = (d) => {
+  let title = encodeURIComponent(d.title)
+  let description = encodeURIComponent(d.description)
   return (dispatch) => {
     const data = new FormData()
     data.append('file', d.file)
-    axios.put(`/api/data/${d.id}?title=${d.title}&description=${d.description}`, data)
+    axios.put(`/api/data/${d.id}?title=${title}&description=${description}`, data)
       .then((res) => {
         dispatch({
           type: UPDATE_DATUM,

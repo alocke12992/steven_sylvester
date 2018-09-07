@@ -26,17 +26,17 @@ class ProfilePicUpload extends React.Component {
       <Grid.Column >
         <Grid.Row>
           {
-         
+
             avatar_url === '' ?
               <Fragment>
                 <Header as='h3'>Current Picture</Header>
                 <Image src={avatar} />
               </Fragment>
-            : 
-            <Fragment>
-              <Header as='h3'>Selected Picture</Header>
-            <Image src={avatar_url.preview} />
-            </Fragment>
+              :
+              <Fragment>
+                <Header as='h3'>Selected Picture</Header>
+                <Image src={avatar_url.preview} />
+              </Fragment>
           }
         </Grid.Row>
         <Grid.Row centered>
@@ -69,7 +69,7 @@ class ProfilePicUpload extends React.Component {
   }
 }
 
-const Drop = styled(Dropzone) `
+const Drop = styled(Dropzone)`
   border: .5px dashed gray; 
   width: 100%;
   height: 200px;
@@ -78,7 +78,7 @@ const Drop = styled(Dropzone) `
   align-items: center;
   justify-content: center;
 `
-const Upload = styled(Header) `
+const Upload = styled(Header)`
   color: lightgray !important;
 `
 
@@ -90,9 +90,6 @@ const Center = styled.div`
 
 const Submit = styled(Button)`
   padding-top: 50px; 
-`
-const Preview = styled(Image)`
-  height: 50% !important;
 `
 
 const mapStateToProps = (state) => {

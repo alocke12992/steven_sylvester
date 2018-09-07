@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import ReactQuill from 'react-quill';
@@ -9,7 +9,6 @@ import {
   Container,
   Divider,
   Form,
-  Grid,
   Header,
   Segment,
 } from 'semantic-ui-react';
@@ -27,7 +26,7 @@ class PublicationForm extends React.Component {
     id: '',
   };
 
-  
+
 
   state = {...this.initialState, current_file: '', files: []};
 
@@ -68,27 +67,23 @@ class PublicationForm extends React.Component {
     closeForm()
   };
 
- render(){
+  render() {
     const {
-      title, 
-      abstract, 
-      authors, 
-      file, 
-      journal, 
-      links, 
-      date, 
-      files, 
-      pub_type, 
-      type,
+      abstract,
+      journal,
+      links,
+      date,
+      files,
+      pub_type,
       current_file,
     } = this.state;
     return (
       <Container>
         <Header
           as="h1"
-          textAlign="center">{this.props.id ? 
-            'Edit Publication' 
-            : 
+          textAlign="center">{this.props.id ?
+            'Edit Publication'
+            :
             'Add Publication'
           }
         </Header>
@@ -115,11 +110,11 @@ class PublicationForm extends React.Component {
           <Segment>
             <Header as='h3'>Publication Type: {pub_type}</Header>
             <Form.Select
-             label='Publication Type' 
-             name='type'
-             placeholder="Choose one..."
-             options={pubOptions}
-             onChange={this.handleSelect}
+              label='Publication Type'
+              name='type'
+              placeholder="Choose one..."
+              options={pubOptions}
+              onChange={this.handleSelect}
             />
             <Form.Field>
               <label>Name of Book/Journal/Blog</label>
@@ -133,7 +128,7 @@ class PublicationForm extends React.Component {
             <Form.Field>
               <label>Link to Source</label>
               <input
-                  placeholder='Link'
+                placeholder='Link'
                 name='links'
                 value={links}
                 onChange={this.handleChange}
@@ -156,25 +151,25 @@ class PublicationForm extends React.Component {
             value={abstract}
             onChange={this.handleChange}
           />
-          <Form.Field> 
+          <Form.Field>
             {
-            files.length > 0 ?
-              <p>You have selected {files.length} file</p>
-            :
-            <div>
-              {
-                this.props.id ? 
-                <p>CurrentFile:<br /><iframe src={current_file}></iframe></p>
+              files.length > 0 ?
+                <p>You have selected {files.length} file</p>
                 :
-                null
-              }
-            <Dropzone
-            onDrop={this.onDrop}
-            multiple={false}
-            >
-            </Dropzone>
-            </div>
-          }
+                <div>
+                  {
+                    this.props.id ?
+                      <p>CurrentFile:<br /><iframe title="current file" src={current_file}></iframe></p>
+                      :
+                      null
+                  }
+                  <Dropzone
+                    onDrop={this.onDrop}
+                    multiple={false}
+                  >
+                  </Dropzone>
+                </div>
+            }
           </Form.Field>
           <Form.Button
             size="medium"

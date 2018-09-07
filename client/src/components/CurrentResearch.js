@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Button, Container, Grid, Header, Icon} from 'semantic-ui-react'
+import {Button, Container, Grid, Header} from 'semantic-ui-react'
 
 class CurrentResearch extends React.Component {
   state = {topic: '', title: '', body: ''}
@@ -28,7 +28,7 @@ class CurrentResearch extends React.Component {
             {user.role === 'admin' &&
               <Grid.Column width={2}>
                 <Link to={`/current_research/${research.id}`} >
-                   <Button icon='settings'>
+                  <Button icon='settings'>
                   </Button>
                 </Link>
               </Grid.Column>

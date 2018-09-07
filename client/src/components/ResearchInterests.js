@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 import ResearchInterestsForm from './ResearchInterestsForm'
 import {getInterests} from '../actions/interests';
-import {Button, Container, Grid, Header, Icon, Segment} from 'semantic-ui-react';
+import {Button, Grid, Icon, Segment} from 'semantic-ui-react';
 
 class ResearchInterests extends React.Component {
   state = {showForm: false};

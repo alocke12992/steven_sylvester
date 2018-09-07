@@ -1,20 +1,17 @@
 import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Grid, Divider, Header, List, Button, Icon} from 'semantic-ui-react';
-import {getPublications, deletePublication} from '../actions/publications';
-import styled from 'styled-components';
+import {Grid, Divider, List, Button, Icon} from 'semantic-ui-react';
+import {deletePublication} from '../actions/publications';
 import Title from './StyledHeader';
 import PublicationForm from './PublicationForm';
 import PublicationView from './PublicationView';
-
-import {Link} from 'react-router-dom';
 
 class Publications extends React.Component {
   state = {publications: [], showForm: false, editing: false, showAbstract: false, showLinks: false}
 
   deletePub = (id) => {
     debugger
-    const {dispatch, history} = this.props
+    const {dispatch} = this.props
     dispatch(deletePublication(id))
   }
 
@@ -36,16 +33,16 @@ class Publications extends React.Component {
   }
 
   showPubs = () => {
-    const {publications, user} = this.props
+    const {publications} = this.props
     return (
       publications.map((publication) => {
         return (
-          <PublicationView key={publication.id} publication={publication} id={publication.id} showForm={this.toggleForm}/>
+          <PublicationView key={publication.id} publication={publication} id={publication.id} showForm={this.toggleForm} />
         )
       }
+      )
     )
-  )
-}
+  }
 
   render() {
     const {showForm} = this.state
@@ -55,33 +52,33 @@ class Publications extends React.Component {
         <Divider hidden />
         <Grid.Row>
           {
-            user.role === 'admin' && 
-              <div>
-                {
-                  showForm === false &&
-                    <Button icon onClick={this.toggleForm}>
-                      <Icon name='plus' />
-                    </Button>
-                }
-              </div>
+            user.role === 'admin' &&
+            <div>
+              {
+                showForm === false &&
+                <Button icon onClick={this.toggleForm}>
+                  <Icon name='plus' />
+                </Button>
+              }
+            </div>
           }
         </Grid.Row>
         {showForm ?
           this.form()
-          :  
+          :
           <Fragment>
             <Grid.Row centered>
               <Title textAlign='center'>Publications</Title>
             </Grid.Row>
             <Grid.Row centered>
-            <Grid.Column width={10}>
-              <List divided relaxed>
-                {
-                this.showPubs()
-                }
-              </List>
-            </Grid.Column>
-          </Grid.Row>
+              <Grid.Column width={10}>
+                <List divided relaxed>
+                  {
+                    this.showPubs()
+                  }
+                </List>
+              </Grid.Column>
+            </Grid.Row>
           </Fragment>
         }
       </Grid>
@@ -92,18 +89,5 @@ const mapStateToProps = (state) => {
   const {publications, user} = state
   return {publications, user}
 }
-
-const Toggle = styled(Button) `
-  background: none !important;
-  color: rgb(65, 131, 196) !important;
-  font-weight: normal !important;
-  padding: 0 !important;
-  margin-top: 5px !important;
-  margin-bottom: 5px !important;
-`
-const Close = styled(Toggle) `
-  padding: 10px !important;
-`
-
 
 export default connect(mapStateToProps)(Publications) 

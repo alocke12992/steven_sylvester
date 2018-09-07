@@ -1,8 +1,7 @@
 import React from 'react';
 import CvPdf from './CvPdf';
-import CvUploader from './CvUploader';
 import {connect} from 'react-redux';
-import {Button, Divider, Grid, Header, Icon, Segment} from 'semantic-ui-react'
+import {Divider, Grid} from 'semantic-ui-react'
 
 class Cv extends React.Component {
   state = {showForm: false}
@@ -13,11 +12,9 @@ class Cv extends React.Component {
     })
   }
   render() {
-    const {user} = this.props
-    const {showForm} = this.state
     return (
       <Grid centered>
-        <Divider hidden/>
+        <Divider hidden />
         <Grid.Row>
           <CvPdf />
         </Grid.Row>

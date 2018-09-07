@@ -41,6 +41,7 @@ class Api::PublicationsController < ApplicationController
   end
 
 def update
+  puts "#{params[:title]}"
     s3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
     s3_bucket = ENV['BUCKET']
     @publication.title = params[:title]

@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import {updateCv} from '../actions/settings';
 import styled from 'styled-components'
-import {Form, Grid, Image, Button, Header, Icon} from 'semantic-ui-react';
+import {Form, Button, Header} from 'semantic-ui-react';
 
 class CvUploader extends React.Component {
   state = {pdf_url: ''}
@@ -25,23 +25,23 @@ class CvUploader extends React.Component {
     const {pdf_url} = this.state
     return (
       <Form onSubmit={this.handleSubmit}>
-          {pdf_url === '' ?
+        {pdf_url === '' ?
           <Drop
             onDrop={this.onDrop}
             multiple={false}
           >
             <Upload as='h4'>Click or Drag to upload</Upload>
           </Drop>
-          : 
+          :
           <Upload as='h4'>Your File is ready</Upload>
-          } 
-          <Submit>Update</Submit>
+        }
+        <Submit>Update</Submit>
       </Form>
     )
   }
 }
 
-const Drop = styled(Dropzone) `
+const Drop = styled(Dropzone)`
   border: .5px dashed gray; 
   border-radius: 20px;
   width: 120%;
@@ -51,7 +51,7 @@ const Drop = styled(Dropzone) `
   align-items: center !important;
   justify-content: center !important;
 `
-const Upload = styled(Header) `
+const Upload = styled(Header)`
   color: lightgray !important;
   font-size: 12px !important;
 `
