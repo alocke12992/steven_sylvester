@@ -1,17 +1,38 @@
 import React from 'react'
 import UniversityForm from './UniversityForm';
 import {Button, Grid, List, Divider} from 'semantic-ui-react'
-import styled from 'styled-components';
+import axios from 'axios';
 import {connect} from 'react-redux';
-import {deleteUniversity} from '../actions/teaching';
-
+import {deleteUniversity} from '../../actions/teaching';
+import Course from './Course'
+import CourseForm from './CourseForm';
 
 class University extends React.Component {
-  state = {showForm: false}
+  state = {showForm: false, showCourseForm: false, courses: []}
+
+  componentDidMount() {
+    this.getCourses()
+  }
+
+  getCourses = () => {
+    axios.get(`api/universities/${this.props.university.id}/courses`)
+      .then((res) => {
+        console.log(res.data)
+        this.setState({courses: [...res.data]})
+      })
+      .catch((res) => {
+        return res
+      })
+  }
 
   toggleForm = () => {
     this.setState(state => {
       return {showForm: !state.showForm}
+    })
+  }
+  toggleCourseForm = () => {
+    this.setState(state => {
+      return {showCourseForm: !state.showCourseForm}
     })
   }
 
@@ -34,7 +55,7 @@ class University extends React.Component {
 
   render() {
     const {university, user} = this.props
-    const {showForm} = this.state
+    const {showForm, courses, showCourseForm} = this.state
     return (
       <List.Item key={university.id}>
         {showForm ? this.form({university})
@@ -45,12 +66,23 @@ class University extends React.Component {
               {university.name}
             </List.Header>
             <List>
-              <List.Item>This is a course</List.Item>
-              <List.Item>This is a course</List.Item>
-              <List.Item>This is a course</List.Item>
-              <List.Item>This is a course</List.Item>
-              <List.Item>This is a course</List.Item>
-              <List.Item>This is a course</List.Item>
+              {courses.length !== 0 && courses.map((course) => {
+                return (
+                  <List.Item key={course.id}>
+                    <Course syllabus={course.syllabus} title={course.title} />
+                  </List.Item>
+                )
+              })
+              }
+              {
+                showCourseForm ?
+                  <div>
+                    <CourseForm closeForm={this.toggleCourseForm} u_id={university.id} />
+                    <Button onClick={this.toggleCourseForm}>-</Button>
+                  </div>
+                  :
+                  <Button onClick={this.toggleCourseForm}>+</Button>
+              }
             </List>
           </div>
         }

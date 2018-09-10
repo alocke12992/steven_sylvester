@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addUniversity, updateUniversity} from '../actions/teaching';
+import {addUniversity, updateUniversity} from '../../actions/teaching';
 import {
   Container,
   Divider,

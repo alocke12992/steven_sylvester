@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Grid, Divider, List, Button, Icon} from 'semantic-ui-react';
 // import {deleteUniversity} from '../actions/teaching';
-import Title from './StyledHeader';
+import Title from '../StyledHeader';
 import UniversityForm from './UniversityForm';
 import University from './University';
 

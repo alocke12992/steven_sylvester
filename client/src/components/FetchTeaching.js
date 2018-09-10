@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Route} from 'react-router-dom';
-import Teaching from './Teaching';
-import University from './University';
+import Teaching from './teaching/Teaching';
+import University from './teaching/University';
 import {getUniversities} from '../actions/teaching';
 import {Loader, Segment, Dimmer} from 'semantic-ui-react';
 
