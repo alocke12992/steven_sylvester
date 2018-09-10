@@ -7,11 +7,11 @@ class Api::InterestsController < ApplicationController
   end
 
   def update
-      if @interest.update(interest_params)
-        render json: @interest
-      else 
-        render json: {errors: @interest.errors.full_messages.join(',') }, status: 422
-      end
+    if @interest.update(interest_params)
+      render json: @interest
+    else 
+      render json: {errors: @interest.errors.full_messages.join(',') }, status: 422
+    end
   end  
 
   private

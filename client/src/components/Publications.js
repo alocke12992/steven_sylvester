@@ -10,7 +10,6 @@ class Publications extends React.Component {
   state = {publications: [], showForm: false, editing: false, showAbstract: false, showLinks: false}
 
   deletePub = (id) => {
-    debugger
     const {dispatch} = this.props
     dispatch(deletePublication(id))
   }

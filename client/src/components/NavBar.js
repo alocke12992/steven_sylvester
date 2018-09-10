@@ -16,19 +16,14 @@ class NavBar extends Component {
         <Link to='/publications'>
           <Menu.Item name='Publications' />
         </Link>
-        <Link to='/current_research'>
-          <Menu.Item name='Current Research' />
-        </Link>
-        <Link to='/data'>
-          <Menu.Item name='Replication Data' />
+        <Link to='/teaching'>
+          <Menu.Item name='Teaching' />
         </Link>
         <Link to='/contact'>
           <Menu.Item name='Contact' />
         </Link>
       </Nav>
-
     )
-
   }
 
 

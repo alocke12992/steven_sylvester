@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     resources :settings, only: [:index]
     resources :publications
     resources :data
+    resources :universities do
+      resources :courses
+    end
     resources :users, only: [:update]
     get '/cv', to: 'cvs#download_pdf'
     put '/settings/:id/update_cv', to: 'settings#update_cv'
