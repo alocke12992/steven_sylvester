@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Grid, Divider, List, Button, Icon} from 'semantic-ui-react';
 // import {deleteUniversity} from '../actions/teaching';
 import Title from './StyledHeader';
-import PublicationForm from './PublicationForm';
+import UniversityForm from './UniversityForm';
 import University from './University';
 
 class Teaching extends React.Component {
@@ -26,7 +26,7 @@ class Teaching extends React.Component {
         <Button onClick={this.toggleForm}>
           Cancel
         </Button>
-        <PublicationForm closeForm={this.toggleForm} />
+        <UniversityForm closeForm={this.toggleForm} />
       </Grid.Column>
     )
   }
@@ -50,17 +50,17 @@ class Teaching extends React.Component {
       <Grid centered>
         <Divider hidden />
         <Grid.Row>
-          {
-            user.role === 'admin' &&
-            <div>
-              {
-                showForm === false &&
-                <Button icon onClick={this.toggleForm}>
-                  <Icon name='plus' />
-                </Button>
-              }
-            </div>
-          }
+          {/* {
+            user.role === 'admin' && */}
+          <div>
+            {
+              showForm === false &&
+              <Button icon onClick={this.toggleForm}>
+                <Icon name='plus' />
+              </Button>
+            }
+          </div>
+          {/* } */}
         </Grid.Row>
         {showForm ?
           this.form()

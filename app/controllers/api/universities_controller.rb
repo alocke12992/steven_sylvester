@@ -1,6 +1,6 @@
 class Api::UniversitiesController < ApplicationController
   before_action :set_university, only: [:show, :update, :destroy]
-  before_action :authenticate_user!, only: [:show, :update, :destroy]
+  # before_action :authenticate_user!, only: [:show, :update, :destroy]
 
   def index
     @university = University.all

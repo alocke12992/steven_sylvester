@@ -19,11 +19,9 @@ export const getUniversities = (cb) => {
   };
 };
 
-export const addPublication = (u) => {
-  let name = encodeURIComponent(u.name)
+export const addUniversity = (university) => {
   return (dispatch) => {
-    const data = new FormData()
-    axios.post(`/api/universities?title=${name}`, data)
+    axios.post(`/api/universities`, university)
       .then((res) => {
         dispatch({type: ADD_UNIVERSITY, university: res.data})
         dispatch(setHeaders(res.headers));
@@ -34,20 +32,13 @@ export const addPublication = (u) => {
   }
 }
 
-export const updatePublication = (p) => {
-  let title = encodeURIComponent(p.title)
-  let abstract = encodeURIComponent(p.abstract)
-  let authors = encodeURIComponent(p.authors)
-  let date = encodeURIComponent(p.date)
-  let journal = encodeURIComponent(p.journal)
+export const updateUniversity = (university) => {
   return (dispatch) => {
-    const data = new FormData()
-    data.append('file', p.file)
-    axios.put(`/api/publications/${p.id}?title=${title}&abstract=${abstract}&authors=${authors}&journal=${journal}&links=${p.links}&date=${date}&pub_type=${p.pub_type}`, data)
+    axios.put(`/api/universities/${university.id}`, university)
       .then((res) => {
         dispatch({
           type: UPDATE_UNIVERSITY,
-          publication: res.data,
+          university: res.data,
         });
         dispatch(setHeaders(res.headers));
       })
@@ -57,9 +48,9 @@ export const updatePublication = (p) => {
   };
 };
 
-export const deletePublication = (id) => {
+export const deleteUniversity = (id) => {
   return (dispatch) => {
-    axios.delete(`/api/publications/${id}`)
+    axios.delete(`/api/universities/${id}`)
       .then(res => dispatch({type: DELETE_UNIVERSITY, id, headers: res.headers}))
   }
 }

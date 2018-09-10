@@ -1,5 +1,5 @@
 import React from 'react'
-import PublicationForm from './PublicationForm';
+import UniversityForm from './UniversityForm';
 import {Button, Grid, List, Divider} from 'semantic-ui-react'
 import styled from 'styled-components';
 import {connect} from 'react-redux';
@@ -19,10 +19,10 @@ class University extends React.Component {
     return {__html: html};
   };
 
-  form = ({publication}) => {
+  form = ({university}) => {
     return (
       <Grid.Column width={6}>
-        <PublicationForm {...publication} closeForm={this.toggleForm} />
+        <UniversityForm {...university} closeForm={this.toggleForm} />
         <Button onClick={this.toggleForm}>
           Cancel
         </Button>
@@ -30,9 +30,9 @@ class University extends React.Component {
     )
   }
 
-  deletePub = (id) => {
+  deleteUniversity = (id) => {
     const {dispatch} = this.props
-    // dispatch(deletePublication(id))
+    // dispatch(deleteUniversity(id))
   }
 
 
@@ -60,18 +60,18 @@ class University extends React.Component {
             </List>
           </div>
         }
-        {user.role === 'admin' &&
-          <List.Content floated='right'>
-            {showForm ?
-              null
-              :
-              <div>
-                <Button onClick={this.toggleForm}>Edit</Button>
-                <Button onClick={() => this.deleteUniversity(university.id)}>Delete</Button>
-              </div>
-            }
-          </List.Content>
-        }
+        {/* {user.role === 'admin' && */}
+        <List.Content floated='right'>
+          {showForm ?
+            null
+            :
+            <div>
+              <Button onClick={this.toggleForm}>Edit</Button>
+              <Button onClick={() => this.deleteUniversity(university.id)}>Delete</Button>
+            </div>
+          }
+        </List.Content>
+        {/* } */}
       </List.Item>
     )
   }
