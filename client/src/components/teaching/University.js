@@ -36,6 +36,20 @@ class University extends React.Component {
     })
   }
 
+  addCourse = (course) => {
+    axios.post(`api/universities/${this.props.university.id}/courses`, course)
+      .then(res => {
+        console.log(res.data)
+        this.setState({
+          courses: [res.data, ...this.state.courses]
+        })
+        this.toggleCourseForm()
+      })
+      .catch(res => {
+        return res
+      })
+  }
+
   form = ({university}) => {
     return (
       <Grid.Column width={6}>
@@ -69,7 +83,7 @@ class University extends React.Component {
               {courses.length !== 0 && courses.map((course) => {
                 return (
                   <List.Item key={course.id}>
-                    <Course syllabus={course.syllabus} title={course.title} />
+                    <Course syllabus={course.syllabus} title={course.title} addCourse={this.addCourse} />
                   </List.Item>
                 )
               })
@@ -77,7 +91,7 @@ class University extends React.Component {
               {
                 showCourseForm ?
                   <div>
-                    <CourseForm closeForm={this.toggleCourseForm} u_id={university.id} />
+                    <CourseForm addCourse={this.addCourse} />
                     <Button onClick={this.toggleCourseForm}>-</Button>
                   </div>
                   :

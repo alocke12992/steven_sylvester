@@ -15,18 +15,7 @@ class CourseForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const course = {...this.state};
-    const {closeForm, u_id} = this.props;
-    axios.post(`api/universities/${u_id}/courses`, course)
-      .then(res => {
-        console.log(res.data)
-        this.setState({
-          ...this.initialState,
-        })
-        closeForm()
-      })
-      .catch(res => {
-        return res
-      })
+    this.props.addCourse(course)
   }
 
   render() {
