@@ -3,7 +3,7 @@ import UniversityForm from './UniversityForm';
 import {Button, Grid, List, Divider} from 'semantic-ui-react'
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-// import {deleteUniversity} from '../actions/teaching';
+import {deleteUniversity} from '../actions/teaching';
 
 
 class University extends React.Component {
@@ -14,10 +14,6 @@ class University extends React.Component {
       return {showForm: !state.showForm}
     })
   }
-
-  createMarkup = (html) => {
-    return {__html: html};
-  };
 
   form = ({university}) => {
     return (
@@ -32,7 +28,7 @@ class University extends React.Component {
 
   deleteUniversity = (id) => {
     const {dispatch} = this.props
-    // dispatch(deleteUniversity(id))
+    dispatch(deleteUniversity(id))
   }
 
 
@@ -45,11 +41,9 @@ class University extends React.Component {
           :
 
           <div>
-            <List.Description>
-              <div
-                dangerouslySetInnerHTML={this.createMarkup(university.name)}
-              />
-            </List.Description>
+            <List.Header>
+              {university.name}
+            </List.Header>
             <List>
               <List.Item>This is a course</List.Item>
               <List.Item>This is a course</List.Item>
@@ -76,14 +70,6 @@ class University extends React.Component {
     )
   }
 }
-const Toggle = styled(Button)`
-  background: none !important;
-  color: rgb(65, 131, 196) !important;
-  font-weight: normal !important;
-  padding: 0 !important;
-  margin-top: 5px !important;
-  margin-bottom: 5px !important;
-`
 
 const mapStateToProps = (state) => {
   return {user: state.user}
