@@ -15,6 +15,7 @@ import Contact from './Contact';
 import EditPassword from './EditPassword';
 import ProtectedRoute from './ProtectedRoute';
 import Profile from './Profile';
+import FetchTeaching from './FetchTeaching';
 import RecoverPassword from './RecoverPassword';
 
 class FetchSettings extends React.Component {
@@ -38,6 +39,7 @@ class FetchSettings extends React.Component {
           <Route exact path='/vitae' component={Cv} />
           <Route exact path='/contact' component={Contact} />
           <Route exact path='/data' component={FetchData} />
+          <Route exact path='/teaching' component={FetchTeaching} />
           <Route path='/current_research' component={FetchResearch} />
           <Route path='/publications' component={FetchPublications} />
           <AuthRoute exact path='/admin' component={Login} />
