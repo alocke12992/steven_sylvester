@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
 import {Grid, Divider, List, Button, Icon} from 'semantic-ui-react';
-// import {deleteUniversity} from '../actions/teaching';
+import {deleteUniversity} from '../../actions/teaching';
 import Title from '../StyledHeader';
 import UniversityForm from './UniversityForm';
 import University from './University';
@@ -11,7 +11,7 @@ class Teaching extends React.Component {
 
   deleteUniversity = (id) => {
     const {dispatch} = this.props
-    // dispatch(deleteUniversity(id))
+    dispatch(deleteUniversity(id))
   }
 
   toggleForm = () => {
@@ -23,9 +23,6 @@ class Teaching extends React.Component {
   form = () => {
     return (
       <Grid.Column width={6}>
-        <Button onClick={this.toggleForm}>
-          Cancel
-        </Button>
         <UniversityForm closeForm={this.toggleForm} />
       </Grid.Column>
     )
@@ -36,7 +33,7 @@ class Teaching extends React.Component {
     return (
       universities.map((university) => {
         return (
-          <University key={university.id} university={university} showForm={this.toggleForm} />
+          <University key={university.id} university={university} showForm={this.toggleForm} user={this.props.user} />
         )
       }
       )
@@ -55,8 +52,8 @@ class Teaching extends React.Component {
           <div>
             {
               showForm === false &&
-              <Button icon onClick={this.toggleForm}>
-                <Icon name='plus' />
+              <Button color="blue" onClick={this.toggleForm}>
+                Add University
               </Button>
             }
           </div>

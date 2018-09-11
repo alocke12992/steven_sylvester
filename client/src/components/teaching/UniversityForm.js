@@ -3,10 +3,13 @@ import {connect} from 'react-redux';
 import {addUniversity, updateUniversity} from '../../actions/teaching';
 import {
   Container,
-  Divider,
   Form,
   Header,
+  Icon,
+  Button,
+  Message
 } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 class UniversityForm extends React.Component {
   initialState = {
@@ -45,34 +48,52 @@ class UniversityForm extends React.Component {
     return (
       <Container>
         <Header
-          as="h1"
+          as="h3"
           textAlign="center">{this.props.id ?
             'Edit university'
             :
             'Add university'
           }
         </Header>
-        <Divider hidden />
         <Form onSubmit={this.handleSubmit}>
-          <Form.Field>
+          <Form.Field required>
             <label>University Name</label>
-            <input
-              placeholder='University Name'
-              name='name'
-              value={name}
-              onChange={this.handleChange}
-            />
+            <FieldGroup>
+              <input
+                placeholder='University Name'
+                name='name'
+                value={name}
+                onChange={this.handleChange}
+                style={{marginRight: '15px'}}
+              />
+              <Form.Group>
+                <Button
+                  onClick={this.handleSubmit}
+                  color="green"
+                  icon
+                >
+                  <Icon name="checkmark" />
+                </Button>
+                <Button onClick={this.props.closeForm} icon color="red"><Icon name="cancel" /></Button>
+              </Form.Group>
+            </FieldGroup>
           </Form.Field>
-          <Form.Button
-            size="medium"
-            color="green">
-            Submit
-          </Form.Button>
+          <Message
+            error
+            header='Action Forbidden'
+            content='You can only sign up for an account once with a given e-mail address.'
+          />
         </Form>
       </Container>
     );
   };
 }
+
+const FieldGroup = styled(Form.Group)`
+  display: flex !important
+  align-items: end !important;
+  margin: 0 .5em 1em !important;
+`
 
 
 export default connect()(UniversityForm);

@@ -3,7 +3,7 @@ class Api::UniversitiesController < ApplicationController
   # before_action :authenticate_user!, only: [:show, :update, :destroy]
 
   def index
-    @university = University.all
+    @university = University.all.order(created_at: :desc)
     render json: @university
   end
 

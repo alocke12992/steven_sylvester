@@ -1,11 +1,12 @@
 import React from 'react'
 import UniversityForm from './UniversityForm';
-import {Button, Grid, List, Divider} from 'semantic-ui-react'
+import {Button, Grid, List, Icon} from 'semantic-ui-react'
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {deleteUniversity} from '../../actions/teaching';
-import Course from './Course'
+import Course from './Course';
 import CourseForm from './CourseForm';
+import styled from 'styled-components';
 
 class University extends React.Component {
   state = {showForm: false, showCourseForm: false, courses: []}
@@ -17,7 +18,6 @@ class University extends React.Component {
   getCourses = () => {
     axios.get(`api/universities/${this.props.university.id}/courses`)
       .then((res) => {
-        console.log(res.data)
         this.setState({courses: [...res.data]})
       })
       .catch((res) => {
@@ -39,7 +39,6 @@ class University extends React.Component {
   addCourse = (course) => {
     axios.post(`api/universities/${this.props.university.id}/courses`, course)
       .then(res => {
-        console.log(res.data)
         this.setState({
           courses: [res.data, ...this.state.courses]
         })
@@ -50,13 +49,30 @@ class University extends React.Component {
       })
   }
 
+  updateCourse = (course) => {
+    const {courses} = this.state
+    let itemToUpdate
+    axios.put(`api/universities/${this.props.university.id}/courses/${course.id}`, course)
+      .then(res => {
+        courses.map((item) => {
+          if (item.id === course.id) {
+            return itemToUpdate = item
+          }
+        });
+        courses.splice(courses.indexOf(itemToUpdate), 1, res.data)
+        this.setState({
+          courses: [...courses]
+        })
+      })
+      .catch(res => {
+        return res
+      })
+  }
+
   form = ({university}) => {
     return (
       <Grid.Column width={6}>
         <UniversityForm {...university} closeForm={this.toggleForm} />
-        <Button onClick={this.toggleForm}>
-          Cancel
-        </Button>
       </Grid.Column>
     )
   }
@@ -76,14 +92,47 @@ class University extends React.Component {
           :
 
           <div>
-            <List.Header>
+            <UniHeader>
               {university.name}
-            </List.Header>
-            <List>
+              <List.Content>
+                {showForm ?
+                  null
+                  :
+                  <React.Fragment>
+                    {/* {user.role === 'admin' && */}
+                    <React.Fragment>
+                      <Button
+                        onClick={this.toggleForm}
+                        color="blue"
+                        icon
+                      >
+                        <Icon name="edit" />
+                      </Button>
+                      <Button
+                        onClick={() => this.deleteUniversity(university.id)}
+                        color="red"
+                        icon
+                      >
+                        <Icon name="delete" />
+                      </Button>
+                    </React.Fragment>
+                    {/* } */}
+                  </React.Fragment>
+                }
+              </List.Content>
+            </UniHeader>
+            <List bulleted>
               {courses.length !== 0 && courses.map((course) => {
                 return (
                   <List.Item key={course.id}>
-                    <Course syllabus={course.syllabus} title={course.title} addCourse={this.addCourse} />
+                    <Course
+                      id={course.id}
+                      syllabus={course.syllabus}
+                      title={course.title}
+                      addCourse={this.addCourse}
+                      updateCourse={this.updateCourse}
+                      user={user}
+                    />
                   </List.Item>
                 )
               })
@@ -95,30 +144,23 @@ class University extends React.Component {
                     <Button onClick={this.toggleCourseForm}>-</Button>
                   </div>
                   :
-                  <Button onClick={this.toggleCourseForm}>+</Button>
+                  <React.Fragment>
+                    {user.role === 'admin' &&
+                      <Button onClick={this.toggleCourseForm}>+</Button>
+                    }
+                  </React.Fragment>
               }
             </List>
           </div>
         }
-        {/* {user.role === 'admin' && */}
-        <List.Content floated='right'>
-          {showForm ?
-            null
-            :
-            <div>
-              <Button onClick={this.toggleForm}>Edit</Button>
-              <Button onClick={() => this.deleteUniversity(university.id)}>Delete</Button>
-            </div>
-          }
-        </List.Content>
-        {/* } */}
       </List.Item>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return {user: state.user}
-}
+const UniHeader = styled(List.Header)`
+  display: flex !important
+  justify-content: space-between !important;
+`
 
-export default connect(mapStateToProps)(University)
+export default connect()(University)

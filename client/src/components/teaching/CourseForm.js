@@ -7,6 +7,12 @@ class CourseForm extends Component {
   initialState = {title: '', syllabus: '', id: ''}
   state = {...this.initialState}
 
+  componentDidMount() {
+    const {title, syllabus, id} = this.props
+    if (id)
+      this.setState({title, syllabus, id});
+  }
+
   handleChange = (e) => {
     const {name, value} = e.target
     this.setState({[name]: value});
@@ -15,7 +21,12 @@ class CourseForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const course = {...this.state};
-    this.props.addCourse(course)
+    if (this.props.id) {
+      this.props.updateCourse(course)
+      this.props.closeForm()
+    } else {
+      this.props.addCourse(course)
+    }
   }
 
   render() {
