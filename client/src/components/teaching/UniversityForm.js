@@ -74,15 +74,10 @@ class UniversityForm extends React.Component {
                 >
                   <Icon name="checkmark" />
                 </Button>
-                <Button onClick={this.props.closeForm} icon color="red"><Icon name="cancel" /></Button>
+                <Button onClick={() => this.props.closeForm()} icon color="red"><Icon name="cancel" /></Button>
               </Form.Group>
             </FieldGroup>
           </Form.Field>
-          <Message
-            error
-            header='Action Forbidden'
-            content='You can only sign up for an account once with a given e-mail address.'
-          />
         </Form>
       </Container>
     );

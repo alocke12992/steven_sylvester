@@ -1,18 +1,13 @@
 import React, {Fragment} from 'react';
 import {connect} from 'react-redux';
-import {Grid, Divider, List, Button, Icon} from 'semantic-ui-react';
-import {deleteUniversity} from '../../actions/teaching';
+import {Grid, Divider, List, Button} from 'semantic-ui-react';
 import Title from '../StyledHeader';
 import UniversityForm from './UniversityForm';
 import University from './University';
+import {deleteUniversity} from '../../actions/teaching';
 
 class Teaching extends React.Component {
-  state = {showForm: false, editing: false}
-
-  deleteUniversity = (id) => {
-    const {dispatch} = this.props
-    dispatch(deleteUniversity(id))
-  }
+  state = {showForm: false}
 
   toggleForm = () => {
     this.setState(state => {
@@ -20,63 +15,60 @@ class Teaching extends React.Component {
     })
   }
 
-  form = () => {
-    return (
-      <Grid.Column width={6}>
-        <UniversityForm closeForm={this.toggleForm} />
-      </Grid.Column>
-    )
+  form = () => (
+    <Grid.Row centered>
+      {this.props.user.role === "admin" &&
+        <Fragment>
+          {this.state.showForm ?
+            <Grid.Column width={6}>
+              <UniversityForm closeForm={this.toggleForm} />
+            </Grid.Column>
+            :
+            <Button color="blue" onClick={this.toggleForm}>
+              Add University
+            </Button>
+          }
+        </Fragment>
+      }
+    </Grid.Row>
+  );
+
+  deleteUniversity = (id) => {
+    const {dispatch} = this.props
+    dispatch(deleteUniversity(id))
   }
 
-  showUniversities = () => {
-    const {universities} = this.props
-    return (
-      universities.map((university) => {
-        return (
-          <University key={university.id} university={university} showForm={this.toggleForm} user={this.props.user} />
-        )
-      }
-      )
-    )
-  }
+  showUniversities = () => (
+    this.props.universities.map((university) => (
+      <University
+        key={university.id}
+        university={university}
+        showForm={this.toggleForm}
+        user={this.props.user}
+        deleteUniversity={this.deleteUniversity}
+      />
+    ))
+  );
 
   render() {
-    const {showForm} = this.state
-    const {user} = this.props
     return (
       <Grid centered>
         <Divider hidden />
-        <Grid.Row>
-          {/* {
-            user.role === 'admin' && */}
-          <div>
-            {
-              showForm === false &&
-              <Button color="blue" onClick={this.toggleForm}>
-                Add University
-              </Button>
-            }
-          </div>
-          {/* } */}
-        </Grid.Row>
-        {showForm ?
-          this.form()
-          :
-          <Fragment>
-            <Grid.Row centered>
-              <Title textAlign='center'>Teaching</Title>
-            </Grid.Row>
-            <Grid.Row centered>
-              <Grid.Column width={10}>
-                <List divided relaxed>
-                  {
-                    this.showUniversities()
-                  }
-                </List>
-              </Grid.Column>
-            </Grid.Row>
-          </Fragment>
-        }
+        <Fragment>
+          <Grid.Row centered>
+            <Title textAlign='center'>Teaching</Title>
+          </Grid.Row>
+          {this.form()}
+          <Grid.Row centered>
+            <Grid.Column width={6}>
+              <List divided relaxed>
+                {
+                  this.showUniversities()
+                }
+              </List>
+            </Grid.Column>
+          </Grid.Row>
+        </Fragment>
       </Grid>
     )
   }
