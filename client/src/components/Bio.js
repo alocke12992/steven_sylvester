@@ -2,8 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import BioForm from './BioForm'
 import Title from './StyledHeader';
+import styled from 'styled-components';
 import {getBios} from '../actions/bios';
 import {Button, Container, Grid, Icon,} from 'semantic-ui-react';
+
+const CVContainer = styled.div`
+  width: 100%;
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+`;
 
 class Bio extends React.Component {
   state = {showForm: false};
@@ -34,8 +42,9 @@ class Bio extends React.Component {
   }
 
   render() {
-    const {body, user} = this.props
+    const {body, user, cv} = this.props
     const {showForm} = this.state
+    console.log(cv)
     return (
       <Grid.Row columns={3}>
         {
@@ -51,10 +60,12 @@ class Bio extends React.Component {
               }
               <Grid.Column width={8}>
                 <Container fluid>
-                  <Title>About Steven</Title>
                   <div
                     dangerouslySetInnerHTML={this.createMarkup(body)}
                   />
+                  <CVContainer>
+                    <a href={cv} target="_blank" rel="noopener noreferrer">Curriculum Vitae</a>
+                  </CVContainer>
                 </Container>
               </Grid.Column>
             </div>
@@ -65,7 +76,12 @@ class Bio extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const {body} = state.bios
-  return {user: state.user, body}
+  const { body } = state.bios;
+  const { settings } = state;
+  return {
+    cv: settings.pdf_url,
+    user: state.user,
+    body
+  }
 }
 export default connect(mapStateToProps)(Bio);

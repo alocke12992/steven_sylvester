@@ -67,7 +67,7 @@ class Publications extends React.Component {
           :
           <Fragment>
             <Grid.Row centered>
-              <Title textAlign='center'>Publications</Title>
+              <Title textAlign='center'>Research</Title>
             </Grid.Row>
             <Grid.Row centered>
               <Grid.Column width={10}>
@@ -89,4 +89,4 @@ const mapStateToProps = (state) => {
   return {publications, user}
 }
 
-export default connect(mapStateToProps)(Publications) 
+export default connect(mapStateToProps)(Publications)

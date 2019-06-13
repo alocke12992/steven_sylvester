@@ -36,8 +36,11 @@ class FetchSettings extends React.Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/about' component={About} />
-          <Route exact path='/vitae' component={Cv} />
-          <Route exact path='/contact' component={Contact} />
+          <AuthRoute exact path='/vitae' component={Cv} />
+          {/*
+            REMOVE PER CLIENT REQUEST
+            <Route exact path='/contact' component={Contact} />
+          */}
           <Route exact path='/data' component={FetchData} />
           <Route exact path='/teaching' component={FetchTeaching} />
           <Route path='/current_research' component={FetchResearch} />

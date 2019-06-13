@@ -1,33 +1,42 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import {Menu, Image, Icon, Grid} from 'semantic-ui-react';
 import {Link, withRouter} from 'react-router-dom';
 import styled from 'styled-components';
 
 class NavBar extends Component {
-  rightNavs = () => {
+  rightNavs = (user) => {
     return (
       <Nav stackable pointing secondary>
         <Link to='/'>
           <Menu.Item name='Home' />
         </Link>
-        <Link to='/vitae'>
-          <Menu.Item name='Curriculum Vitae' />
-        </Link>
         <Link to='/publications'>
-          <Menu.Item name='Publications' />
+          <Menu.Item name='Research' />
         </Link>
         <Link to='/teaching'>
           <Menu.Item name='Teaching' />
         </Link>
-        <Link to='/contact'>
-          <Menu.Item name='Contact' />
-        </Link>
+        {
+          user.id && (
+            <Link to='/vitae'>
+              <Menu.Item name='Curriculum Vitae' />
+            </Link>
+          )
+        }
+        {/*
+          REMOVED PER CLIENT REQUEST
+          <Link to='/contact'>
+            <Menu.Item name='Contact' />
+          </Link>
+        */}
       </Nav>
     )
   }
 
 
   render() {
+    const { user } = this.props;
     return (
       <Grid centered>
         <Image src={require('../images/slcHeaderNoName.jpg')} style={{width: '100% !important', height: 'auto !important'}} />
@@ -40,13 +49,13 @@ class NavBar extends Component {
           </NavWrapper>
           <Grid.Column verticalAlign='middle' width={1}>
             <a target='_blank' href='https://twitter.com/ssylvester82?lang=en' rel="noopener noreferrer">
-              <Icon name='twitter' />
+              <CustomIcon name='twitter' />
             </a>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row centered>
           <Center textAlign='center' width={16}>
-            {this.rightNavs()}
+            {this.rightNavs(user)}
           </Center>
         </Grid.Row>
       </Grid>
@@ -95,10 +104,24 @@ const Nav = styled(Menu)`
   justify-content: space-around !important;
   width: 80% !important;
   color: #333;
-    font-family: 'Lato', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 19px;
-`
+  font-family: 'Lato', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 19px;
 
-export default withRouter(NavBar);
+  &.ui.secondary.pointing.menu {
+    &:after {
+      display: none !important;
+    }
+  }
+`;
+
+const CustomIcon = styled(Icon)`
+  font-size: 2rem !important;
+`;
+
+const mapStateToProps = state => {
+  return { user: state.user };
+};
+
+export default withRouter( connect( mapStateToProps )(NavBar));
