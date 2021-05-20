@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "filepond": "^1.2.11",
-    "html-pdf": "^2.2.0",
+    "html-pdf": "^3.0.1",
     "pdfjs-dist": "^2.0.474",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
